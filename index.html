@@ -127,29 +127,6 @@
       text-align: center;
     }
 
-    .tile span.new-badge {
-      margin-left: auto;
-      background-color: #00e0ff;
-      color: #0f0c29;
-      padding: 2px 8px;
-      font-size: 0.75em;
-      border-radius: 12px;
-      font-weight: bold;
-      animation: glowFade 1.8s infinite ease-in-out;
-      box-shadow: 0 0 8px rgba(0, 224, 255, 0.6);
-    }
-
-    @keyframes glowFade {
-      0%, 100% {
-        box-shadow: 0 0 6px rgba(0, 224, 255, 0.6);
-        background-color: #00e0ff;
-      }
-      50% {
-        box-shadow: 0 0 18px rgba(0, 224, 255, 1);
-        background-color: #00f0ff;
-      }
-    }
-
     .tile:nth-child(1) { animation-delay: 0.1s; }
     .tile:nth-child(2) { animation-delay: 0.3s; }
     .tile:nth-child(3) { animation-delay: 0.5s; }
@@ -192,6 +169,12 @@
       .tagline { font-size: 1.05em; }
       .tile { font-size: 0.9em; padding: 16px 8px; }
     }
+
+    @keyframes loopFade {
+      0% { opacity: 0; transform: translateY(5px); }
+      50% { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(-5px); }
+    }
   </style>
 </head>
 <body class="fade-in" oncontextmenu="return false" oncopy="return false" oncut="return false" onpaste="return false">
@@ -208,11 +191,7 @@
   <div class="tiles">
     <a class="tile" href="https://damindu817.github.io/crash_loading_page/" target="_blank"><i class="fas fa-bolt"></i>Crash Predictor : 1xbet</a>
     <a class="tile" href="https://damindu817.github.io/aviator_loading/" target="_blank"><i class="fas fa-paper-plane"></i>Aviator Predictor Pro : 1xbet</a>
-    <a class="tile" href="https://your-link-here.com" target="_blank">
-      <i class="fas fa-paper-plane"></i>
-      XTREME AVIATOR PREDICTOR 2 ODD : 1XBET
-      <span class="new-badge">NEW</span>
-    </a>
+    <a class="tile" href="https://your-link-here.com" target="_blank"><i class="fas fa-paper-plane"></i>XTREME AVIATOR PREDICTOR 2 ODD : 1XBET</a>
     <a class="tile" href="https://damindu817.github.io/5-_Aviator_Signal_Tracker_1/" target="_blank"><i class="fas fa-wave-square"></i>5x Aviator Signal Analyzer with ETA : 1xbet</a>
     <a class="tile" href="https://damindu817.github.io/1xbet_Aviator_Signal_Tracker_with_ETA_10-/" target="_blank"><i class="fas fa-wave-square"></i>10x Aviator Signal Analyzer with ETA : 1xbet</a>
     <a class="tile" href="https://damindu817.github.io/speed_baccarat_a_loading-/" target="_blank"><i class="fas fa-clone"></i>Speed Baccarat A: Evolution Games</a>
