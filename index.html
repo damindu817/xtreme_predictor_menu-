@@ -1,23 +1,39 @@
 <!DOCTYPE html>
-<html lang="si">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Xtreme Predictor</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>Xtreme Predictor Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #00e0ff;
+      --secondary: #7b2fff;
+      --dark-bg: #0f0c29;
+      --card-bg: rgba(255, 255, 255, 0.06);
+      --text-light: #ffffffdd;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
     body {
       margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
-      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, var(--dark-bg), #302b63, #24243e);
+      color: var(--text-light);
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 40px 20px 40px;
+      padding: 20px 15px;
       min-height: 100vh;
       user-select: none;
+      line-height: 1.5;
+      overflow-x: hidden;
     }
 
     body.fade-in {
@@ -29,109 +45,189 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .header {
+      text-align: center;
+      margin-bottom: 25px;
+      width: 100%;
+      max-width: 800px;
+    }
+
     .title-box {
-      margin: 80px 0 30px;
-      padding: 20px 40px;
-      border: 2px solid #00e0ff;
-      border-radius: 15px;
+      margin: 0 auto 20px;
+      padding: 20px;
+      border: 2px solid var(--primary);
+      border-radius: 12px;
       background: rgba(0, 224, 255, 0.05);
       backdrop-filter: blur(4px);
-      text-align: center;
-      box-shadow: 0 0 20px rgba(0, 224, 255, 0.2);
+      box-shadow: 0 0 15px rgba(0, 224, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .title-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(0, 224, 255, 0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
 
     .title-box h1 {
-      font-size: 2.6em;
-      color: #00e0ff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.5rem, 6vw, 2.2rem);
+      font-weight: 700;
+      color: var(--primary);
       margin: 0;
-      text-shadow: 0 0 10px rgba(0, 224, 255, 0.4);
-      animation: fadeInTop 1s ease-out;
+      text-shadow: 0 0 8px rgba(0, 224, 255, 0.4);
+      position: relative;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .tagline {
-      margin-top: 15px;
-      font-size: 1.3em;
-      color: #ffffffdd;
+      margin-top: 8px;
+      font-size: clamp(0.85rem, 3.5vw, 1rem);
+      color: var(--text-light);
       font-weight: 400;
-      font-family: sans-serif;
-      letter-spacing: 0.6px;
-      animation: fadeInTagline 1.2s ease-out;
+      letter-spacing: 0.3px;
+      position: relative;
     }
 
-    .dots {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background-color: #00e0ff;
-      opacity: 0;
-      animation: blink 1.5s infinite;
-    }
-
-    .dot:nth-child(1) { animation-delay: 0s; }
-    .dot:nth-child(2) { animation-delay: 0.2s; }
-    .dot:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes blink {
-      0%, 80%, 100% { opacity: 0.1; transform: scale(0.8); }
-      40% { opacity: 1; transform: scale(1.2); }
-    }
-
-    .tiles {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
+    .category {
+      margin-bottom: 25px;
       width: 100%;
       max-width: 1000px;
     }
 
+    .category-title {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--primary);
+      margin-bottom: 15px;
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tiles-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 15px;
+    }
+
     .tile {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      padding: 18px 10px;
-      font-size: 0.95em;
-      text-align: left;
-      color: #f0f0f0;
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 15px;
       transition: all 0.3s ease;
       backdrop-filter: blur(6px);
-      box-shadow: 0 3px 8px rgba(0, 255, 255, 0.08);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInTile 0.8s ease-out forwards;
       display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none !important;
+    }
+
+    .tile::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 224, 255, 0.05) 0%, transparent 100%);
+      z-index: -1;
     }
 
     .tile:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 16px rgba(0, 255, 255, 0.3);
-      background: rgba(0, 255, 255, 0.08);
+      box-shadow: 0 6px 15px rgba(0, 224, 255, 0.2);
+      border-color: rgba(0, 224, 255, 0.3);
     }
 
-    .tile i {
-      font-size: 1.4em;
-      background: linear-gradient(45deg, #00e0ff, #ff00ff);
+    .tile-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .tile-icon {
+      font-size: 1.2rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      display: inline-block;
-      min-width: 24px;
-      text-align: center;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+    }
+
+    .tile-title {
+      font-weight: 500;
+      font-size: clamp(0.95rem, 3.5vw, 1.05rem);
+      margin: 0;
+      color: white;
+    }
+
+    .tile-subtitle {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 3px;
+    }
+
+    .tile-description {
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .tile-footer {
+      margin-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .provider-badge {
+      background: rgba(0, 224, 255, 0.1);
+      color: var(--primary);
+      padding: 3px 8px;
+      border-radius: 15px;
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
+
+    .access-badge {
+      background: rgba(123, 47, 255, 0.1);
+      color: #a37aff;
+      padding: 3px 8px;
+      border-radius: 15px;
+      font-size: 0.7rem;
+      font-weight: 500;
     }
 
     .tile:nth-child(1) { animation-delay: 0.1s; }
-    .tile:nth-child(2) { animation-delay: 0.3s; }
-    .tile:nth-child(3) { animation-delay: 0.5s; }
-    .tile:nth-child(4) { animation-delay: 0.7s; }
-    .tile:nth-child(5) { animation-delay: 0.9s; }
+    .tile:nth-child(2) { animation-delay: 0.2s; }
+    .tile:nth-child(3) { animation-delay: 0.3s; }
+    .tile:nth-child(4) { animation-delay: 0.4s; }
 
     @keyframes fadeInTile {
       to {
@@ -141,79 +237,232 @@
     }
 
     footer {
-      margin-top: 100px;
-      font-size: 0.85em;
-      color: #aaa;
-      padding-top: 20px;
+      margin-top: 40px;
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.5);
+      padding-top: 15px;
       text-align: center;
       max-width: 700px;
       width: 100%;
-      font-family: sans-serif;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    @keyframes fadeInTop {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    .status-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
     }
 
-    @keyframes fadeInTagline {
-      0% { opacity: 0; transform: translateY(10px); }
-      100% { opacity: 1; transform: translateY(0); }
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #00ff88;
+      box-shadow: 0 0 6px #00ff88;
     }
 
     @media (max-width: 480px) {
       .title-box {
-        margin-top: 100px;
+        padding: 15px;
       }
-      .title-box h1 { font-size: 1.6em; }
-      .tagline { font-size: 1.05em; }
-      .tile { font-size: 0.9em; padding: 16px 8px; }
-    }
-
-    @keyframes loopFade {
-      0% { opacity: 0; transform: translateY(5px); }
-      50% { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(-5px); }
+      .tile {
+        padding: 12px;
+      }
+      .tiles-container {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
-<body class="fade-in" oncontextmenu="return false" oncopy="return false" oncut="return false" onpaste="return false">
-  <div class="title-box">
-    <h1>Xtreme Predictor</h1>
-    <p class="tagline">Smart. Fast. Exclusive access to predictors</p>
-    <div class="dots">
-      <span class="dot"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
+<body class="fade-in" oncontextmenu="return false">
+  <div class="header">
+    <div class="title-box">
+      <h1>XTREME PREDICTOR PRO</h1>
+      <p class="tagline">Advanced prediction algorithms for professional gaming</p>
+    </div>
+    
+    <div class="status-bar">
+      <div class="status-item">
+        <span class="status-dot"></span>
+        <span>System Operational</span>
+      </div>
+      <div class="status-item">
+        <i class="fas fa-shield-alt" style="color: var(--primary);"></i>
+        <span>Secure Connection</span>
+      </div>
     </div>
   </div>
 
-  <div class="tiles">
-    <a class="tile" href="https://damindu817.github.io/crash_loading_page/" target="_blank"><i class="fas fa-bolt"></i>Crash Predictor : 1xbet</a>
-    <a class="tile" href="https://damindu817.github.io/aviator_loading/" target="_blank"><i class="fas fa-paper-plane"></i>Aviator Predictor Pro : 1xbet</a>
-    <a class="tile" href="https://damindu817.github.io/Aviator-2-ODD-Loading/" target="_blank"><i class="fas fa-paper-plane"></i>Aviator Predictor 2× - 3× Odd : 1xbet</a>
-    <a class="tile" href="https://damindu817.github.io/Xtreme-Aviator-Predictor-Live-Odd-Analyzer/" target="_blank"><i class="fas fa-wave-square"></i>Aviator Live 2× Odds Analyzer Predictor : 1xbet</a>
-    <a class="tile" href="https://damindu817.github.io/Xtreme-Aviator-Hash-High-Predictor-1xbet/" target="_blank"><i class="fas fa-wave-square"></i>Xtreme Aviator Hash High Predictor : 1xbet</a>
-    <a class="tile" href="https://damindu817.github.io/speed_baccarat_a_loading-/" target="_blank"><i class="fas fa-clone"></i>Speed Baccarat A: Evolution Games</a>
+  <div class="category">
+    <h2 class="category-title">
+      <i class="fas fa-rocket"></i>
+      <span>1XBET PREDICTORS</span>
+    </h2>
+    <div class="tiles-container">
+      <a class="tile" href="https://damindu817.github.io/crash_loading_page/" target="_blank">
+        <div class="tile-header">
+          <div class="tile-icon">
+            <i class="fas fa-bolt"></i>
+          </div>
+          <div>
+            <h3 class="tile-title">Crash Predictor</h3>
+            <p class="tile-subtitle">Real-time crash point analysis</p>
+          </div>
+        </div>
+        <p class="tile-description">
+          Advanced algorithm predicting optimal cash-out points with 85% accuracy rate.
+        </p>
+        <div class="tile-footer">
+          <span class="provider-badge">1XBET</span>
+          <span class="access-badge">PRO ACCESS</span>
+        </div>
+      </a>
+      
+      <a class="tile" href="https://damindu817.github.io/aviator_loading/" target="_blank">
+        <div class="tile-header">
+          <div class="tile-icon">
+            <i class="fas fa-paper-plane"></i>
+          </div>
+          <div>
+            <h3 class="tile-title">Aviator Predictor Pro</h3>
+            <p class="tile-subtitle">Premium flight prediction</p>
+          </div>
+        </div>
+        <p class="tile-description">
+          Professional-grade predictor analyzing multiple flight patterns simultaneously.
+        </p>
+        <div class="tile-footer">
+          <span class="provider-badge">1XBET</span>
+          <span class="access-badge">VIP ACCESS</span>
+        </div>
+      </a>
+      
+      <a class="tile" href="https://damindu817.github.io/Aviator-2-ODD-Loading/" target="_blank">
+        <div class="tile-header">
+          <div class="tile-icon">
+            <i class="fas fa-paper-plane"></i>
+          </div>
+          <div>
+            <h3 class="tile-title">Aviator 2×-3× Odd Predictor</h3>
+            <p class="tile-subtitle">Specialized odd analysis</p>
+          </div>
+        </div>
+        <p class="tile-description">
+          Focused predictor for identifying high-probability 2× and 3× multiplier opportunities.
+        </p>
+        <div class="tile-footer">
+          <span class="provider-badge">1XBET</span>
+          <span class="access-badge">PRO ACCESS</span>
+        </div>
+      </a>
+      
+      <a class="tile" href="https://damindu817.github.io/Xtreme-Aviator-Predictor-Live-Odd-Analyzer/" target="_blank">
+        <div class="tile-header">
+          <div class="tile-icon">
+            <i class="fas fa-wave-square"></i>
+          </div>
+          <div>
+            <h3 class="tile-title">Live 2× Odds Analyzer</h3>
+            <p class="tile-subtitle">Real-time probability engine</p>
+          </div>
+        </div>
+        <p class="tile-description">
+          Live analysis tool that monitors and predicts 2× multiplier points as they develop.
+        </p>
+        <div class="tile-footer">
+          <span class="provider-badge">1XBET</span>
+          <span class="access-badge">VIP ACCESS</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="category">
+    <h2 class="category-title">
+      <i class="fas fa-gamepad"></i>
+      <span>EVOLUTION GAMES</span>
+    </h2>
+    <div class="tiles-container">
+      <a class="tile" href="https://damindu817.github.io/Xtreme-Aviator-Hash-High-Predictor-1xbet/" target="_blank">
+        <div class="tile-header">
+          <div class="tile-icon">
+            <i class="fas fa-wave-square"></i>
+          </div>
+          <div>
+            <h3 class="tile-title">Hash High Predictor</h3>
+            <p class="tile-subtitle">Advanced hash analysis</p>
+          </div>
+        </div>
+        <p class="tile-description">
+          Specialized tool for detecting high-probability patterns in hash algorithms.
+        </p>
+        <div class="tile-footer">
+          <span class="provider-badge">1XBET</span>
+          <span class="access-badge">ELITE ACCESS</span>
+        </div>
+      </a>
+      
+      <a class="tile" href="https://damindu817.github.io/speed_baccarat_a_loading-/" target="_blank">
+        <div class="tile-header">
+          <div class="tile-icon">
+            <i class="fas fa-clone"></i>
+          </div>
+          <div>
+            <h3 class="tile-title">Speed Baccarat A</h3>
+            <p class="tile-subtitle">Rapid outcome prediction</p>
+          </div>
+        </div>
+        <p class="tile-description">
+          High-speed analysis engine for Evolution's fast-paced baccarat variant.
+        </p>
+        <div class="tile-footer">
+          <span class="provider-badge">EVOLUTION</span>
+          <span class="access-badge">PRO ACCESS</span>
+        </div>
+      </a>
+    </div>
   </div>
 
   <footer>
-    POWERED BY XTREME PREDICTOR © 2025
+    <p>© 2025 XTREME PREDICTOR TECHNOLOGIES | ALL RIGHTS RESERVED</p>
+    <p style="margin-top: 8px; font-size: 0.75rem; opacity: 0.7;">
+      <i class="fas fa-lock"></i> Secure encrypted connection | v3.2.1
+    </p>
   </footer>
 
   <script>
-    function triggerFadeIn() {
-      document.body.classList.remove('fade-in');
-      void document.body.offsetWidth;
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add fade-in animation on load
       document.body.classList.add('fade-in');
-    }
-
-    window.addEventListener('load', triggerFadeIn);
-
-    window.addEventListener('pageshow', function (event) {
-      if (event.persisted || performance.getEntriesByType("navigation")[0].type === "back_forward") {
-        triggerFadeIn();
-      }
+      
+      // Prevent context menu
+      document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+      });
+      
+      // Add click animation to tiles
+      const tiles = document.querySelectorAll('.tile');
+      tiles.forEach(tile => {
+        tile.addEventListener('mousedown', function() {
+          this.style.transform = 'translateY(2px)';
+        });
+        tile.addEventListener('mouseup', function() {
+          this.style.transform = '';
+        });
+        tile.addEventListener('mouseleave', function() {
+          this.style.transform = '';
+        });
+      });
     });
   </script>
 </body>
