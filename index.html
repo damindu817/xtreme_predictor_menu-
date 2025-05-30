@@ -13,6 +13,7 @@
       --dark-bg: #0f0c29;
       --card-bg: rgba(255, 255, 255, 0.06);
       --text-light: #ffffffdd;
+      --locked: #ff3a3a;
     }
     
     * {
@@ -265,6 +266,16 @@
       font-weight: 500;
     }
 
+    .locked-badge {
+      background: rgba(255, 58, 58, 0.15);
+      color: var(--locked);
+      padding: 4px 8px;
+      border-radius: 15px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      border: 1px solid rgba(255, 58, 58, 0.3);
+    }
+
     .tile:nth-child(1) { animation-delay: 0.1s; }
     .tile:nth-child(2) { animation-delay: 0.2s; }
     .tile:nth-child(3) { animation-delay: 0.3s; }
@@ -452,6 +463,22 @@
         <div class="tile-footer">
           <span class="provider-badge">1XBET / MELBET</span>
           <span class="access-badge">FREE ACCESS</span>
+        </div>
+      </a>
+      
+      <a class="tile" href="#">
+        <div class="tile-header">
+          <div class="tile-icon">
+            <i class="fas fa-wave-square"></i>
+          </div>
+          <div>
+            <h3 class="tile-title">XTREME AVIATOR SHA512 HASH HIGH PREDICTOR PRO</h3>
+            <p class="tile-subtitle">Advanced prediction algorithm for optimal results</p>
+          </div>
+        </div>
+        <div class="tile-footer">
+          <span class="provider-badge">1XBET</span>
+          <span class="locked-badge">PREMIUM ACCESS</span>
         </div>
       </a>
       
