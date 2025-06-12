@@ -54,6 +54,11 @@
       overscroll-behavior-y: contain;
       width: 100%;
       position: relative;
+      scrollbar-width: none; /* Hide scrollbar for Firefox */
+    }
+
+    body::-webkit-scrollbar {
+      display: none; /* Hide scrollbar for Chrome, Safari and Opera */
     }
 
     body.fade-in {
@@ -460,7 +465,16 @@
           <span class="access-badge">FREE ACCESS</span>
         </div>
       </a>
-      
+    </div>
+  </div>
+
+  <!-- New Hash & Analysis Tools Section -->
+  <div class="category">
+    <h2 class="category-title">
+      <i class="fas fa-chart-line"></i>
+      <span>SIGNAL ANALYSIS TOOLS</span>
+    </h2>
+    <div class="tiles-container">
       <a class="tile" href="https://damindu817.github.io/Xtreme-Aviator-Predictor-Live-Odd-Analyzer/" target="_blank">
         <div class="tile-header">
           <div class="tile-icon">
@@ -535,7 +549,7 @@
     </div>
   </div>
 
-  <!-- New Cash Agents Section -->
+  <!-- Cash Agents Section -->
   <div class="category">
     <h2 class="category-title">
       <i class="fas fa-money-bill-transfer"></i>
@@ -556,8 +570,7 @@
           Connect with our verified network of cash agents for seamless transactions on all major gaming platforms. Fast, reliable and confidential service.
         </div>
         <div class="tile-footer">
-          <span class="provider-badge">ALL GAMING PLATFORMS
-</span>
+          <span class="provider-badge">ALL GAMING PLATFORMS</span>
           <span class="cash-agent-badge">VERIFIED AGENTS</span>
         </div>
       </a>
