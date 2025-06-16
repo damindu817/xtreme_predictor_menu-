@@ -8,38 +8,52 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
-      --primary: #00e0ff;
-      --secondary: #ff00ff;
+      --primary: #ff2d75;
+      --secondary: #9c27b0;
+      --tertiary: #00e0ff;
       --dark-bg: #0f0c29;
-      --card-bg: rgba(255, 255, 255, 0.06);
+      --darker-bg: #0a081f;
+      --card-bg: rgba(20, 10, 30, 0.7);
       --text-light: #ffffffdd;
+      --text-lighter: #ffffff;
       --locked: #ff3a3a;
+      --cash-agent: #ff9900;
+      --success: #00ff88;
+      --warning: #ffcc00;
+      --gradient: linear-gradient(135deg, var(--primary), var(--secondary), var(--tertiary));
+      --gradient-reverse: linear-gradient(135deg, var(--tertiary), var(--secondary), var(--primary));
+      --card-gradient: linear-gradient(135deg, rgba(255,45,117,0.15), rgba(156,39,176,0.15), rgba(0,224,255,0.15));
+      --glow: 0 0 15px rgba(255, 45, 117, 0.5);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     }
     
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
     }
     
     *::-webkit-scrollbar {
-      display: none;
-      width: 0;
-      height: 0;
+      display: none; /* Chrome, Safari and Opera */
+      width: 0 !important;
+      height: 0 !important;
       background: transparent;
     }
     
     html {
       overflow: hidden;
       height: 100%;
+      -webkit-overflow-scrolling: touch;
     }
     
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(to right, var(--dark-bg), #302b63, #24243e);
+      background: linear-gradient(to bottom, var(--darker-bg), var(--dark-bg));
       color: var(--text-light);
       display: flex;
       flex-direction: column;
@@ -53,6 +67,13 @@
       overscroll-behavior-y: contain;
       width: 100%;
       position: relative;
+      scrollbar-width: none;
+    }
+
+    body::-webkit-scrollbar {
+      display: none;
+      width: 0 !important;
+      height: 0 !important;
     }
 
     body.fade-in {
@@ -75,40 +96,52 @@
     .title-box {
       margin: 0 auto 25px;
       padding: 20px;
-      border: 2px solid var(--primary);
+      border: 2px solid transparent;
       border-radius: 12px;
-      background: rgba(0, 224, 255, 0.05);
+      background: linear-gradient(var(--darker-bg), var(--darker-bg)) padding-box,
+                  var(--gradient) border-box;
       backdrop-filter: blur(4px);
-      box-shadow: 0 0 15px rgba(0, 224, 255, 0.2);
+      box-shadow: var(--glow), 0 8px 20px rgba(0, 0, 0, 0.3);
       position: relative;
       overflow: hidden;
     }
 
-    .title-box::before {
+    .title-box::after {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(0, 224, 255, 0.1) 0%, transparent 70%);
-      animation: rotate 20s linear infinite;
-      z-index: -1;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg);
+      animation: shineLoop 6s infinite;
+      z-index: 1;
     }
 
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    @keyframes shineLoop {
+      0% { left: -100%; opacity: 0.6; }
+      20% { opacity: 0.8; }
+      100% { left: 150%; opacity: 0; }
     }
 
     .title-box h1 {
       font-family: 'Orbitron', sans-serif;
       font-size: clamp(1.5rem, 6vw, 2rem);
       font-weight: 700;
-      color: var(--primary);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin: 0;
-      text-shadow: 0 0 8px rgba(0, 224, 255, 0.4);
+      text-shadow: 0 0 10px rgba(255, 45, 117, 0.3);
       position: relative;
+      z-index: 2;
     }
 
     .tagline {
@@ -118,6 +151,7 @@
       font-weight: 400;
       letter-spacing: 0.3px;
       position: relative;
+      z-index: 2;
     }
 
     .dots {
@@ -125,15 +159,17 @@
       display: flex;
       justify-content: center;
       gap: 6px;
+      z-index: 2;
     }
 
     .dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background-color: var(--primary);
+      background: var(--gradient);
       opacity: 0;
       animation: blink 1.5s infinite;
+      box-shadow: 0 0 5px rgba(255, 45, 117, 0.5);
     }
 
     .dot:nth-child(1) { animation-delay: 0s; }
@@ -153,7 +189,10 @@
 
     .category-title {
       font-family: 'Orbitron', sans-serif;
-      color: var(--primary);
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 18px;
       font-size: clamp(1rem, 4vw, 1.1rem);
       display: flex;
@@ -172,9 +211,9 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 10px;
       padding: 16px;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       backdrop-filter: blur(6px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInTile 0.8s ease-out forwards;
@@ -185,21 +224,22 @@
       text-decoration: none !important;
     }
 
-    .tile::after {
+    .tile::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: linear-gradient(135deg, rgba(0, 224, 255, 0.05) 0%, transparent 100%);
+      background: var(--card-gradient);
       z-index: -1;
+      opacity: 0.5;
     }
 
     .tile:hover {
       transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0, 224, 255, 0.2);
-      border-color: rgba(0, 224, 255, 0.3);
+      box-shadow: 0 0 20px rgba(255, 45, 117, 0.3), 0 8px 20px rgba(0, 0, 0, 0.3);
+      border-color: rgba(255, 45, 117, 0.3);
     }
 
     .tile-header {
@@ -210,7 +250,7 @@
 
     .tile-icon {
       font-size: 1.2rem;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      background: var(--gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       width: 35px;
@@ -225,12 +265,15 @@
       font-weight: 500;
       font-size: clamp(0.95rem, 3.5vw, 1rem);
       margin: 0;
-      color: white;
+      color: var(--text-lighter);
     }
 
     .tile-subtitle {
       font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.7);
+      background: linear-gradient(90deg, var(--text-light), var(--tertiary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-top: 4px;
     }
 
@@ -249,25 +292,27 @@
     }
 
     .provider-badge {
-      background: rgba(0, 224, 255, 0.1);
+      background: linear-gradient(135deg, rgba(255, 45, 117, 0.2), rgba(156, 39, 176, 0.2));
       color: var(--primary);
       padding: 4px 8px;
       border-radius: 15px;
       font-size: 0.7rem;
       font-weight: 500;
+      border: 1px solid rgba(255, 45, 117, 0.3);
     }
 
     .access-badge {
-      background: rgba(123, 47, 255, 0.1);
-      color: #a37aff;
+      background: linear-gradient(135deg, rgba(0, 224, 255, 0.2), rgba(156, 39, 176, 0.2));
+      color: var(--tertiary);
       padding: 4px 8px;
       border-radius: 15px;
       font-size: 0.7rem;
       font-weight: 500;
+      border: 1px solid rgba(0, 224, 255, 0.3);
     }
 
     .locked-badge {
-      background: rgba(255, 58, 58, 0.15);
+      background: linear-gradient(135deg, rgba(255, 58, 58, 0.2), rgba(156, 39, 176, 0.2));
       color: var(--locked);
       padding: 4px 8px;
       border-radius: 15px;
@@ -286,6 +331,29 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    .shine-effect {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg);
+      animation: clickShine 0.7s;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes clickShine {
+      0% { left: -100%; opacity: 0.6; }
+      100% { left: 150%; opacity: 0; }
     }
 
     footer {
@@ -320,8 +388,15 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background-color: #00ff88;
-      box-shadow: 0 0 6px #00ff88;
+      background-color: var(--success);
+      box-shadow: 0 0 6px var(--success);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(0, 255, 136, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
     }
 
     @media (max-width: 480px) {
@@ -343,7 +418,7 @@
 <body class="fade-in" oncontextmenu="return false">
   <div class="header">
     <div class="title-box">
-      <h1>XTREME PREDICTOR</h1>
+      <h1>XTREME PREDICTOR PRO</h1>
       <p class="tagline">Advanced prediction algorithms for professional gaming</p>
       <div class="dots">
         <span class="dot"></span>
@@ -358,7 +433,7 @@
         <span>System Operational</span>
       </div>
       <div class="status-item">
-        <i class="fas fa-shield-alt" style="color: var(--primary);"></i>
+        <i class="fas fa-shield-alt" style="color: var(--tertiary);"></i>
         <span>Secure Connection</span>
       </div>
     </div>
@@ -434,7 +509,7 @@
         </div>
       </a>
       
-      <a class="tile" href="https://damindu817.github.io/Xtreme-Aviator-Predictor-Melbet-/" target="_blank">
+      <a class="tile" href="https://damindu817.github.io/Melbet-Aviator-7-odd-loading-screen-/" target="_blank">
         <div class="tile-header">
           <div class="tile-icon">
             <i class="fas fa-paper-plane"></i>
@@ -449,7 +524,16 @@
           <span class="access-badge">FREE ACCESS</span>
         </div>
       </a>
-      
+    </div>
+  </div>
+
+  <!-- New Hash & Analysis Tools Section -->
+  <div class="category">
+    <h2 class="category-title">
+      <i class="fas fa-chart-line"></i>
+      <span>SIGNAL ANALYSIS TOOLS</span>
+    </h2>
+    <div class="tiles-container">
       <a class="tile" href="https://damindu817.github.io/Xtreme-Aviator-Predictor-Live-Odd-Analyzer/" target="_blank">
         <div class="tile-header">
           <div class="tile-icon">
@@ -527,7 +611,7 @@
   <footer>
     <p>© 2025 XTREME PREDICTOR TECHNOLOGIES | ALL RIGHTS RESERVED</p>
     <p style="margin-top: 10px; font-size: 0.75rem; opacity: 0.7;">
-      <i class="fas fa-lock"></i> Secure encrypted connection | v3.2.1
+      <i class="fas fa-lock" style="color: var(--tertiary);"></i> Secure encrypted connection | v3.2.1
     </p>
   </footer>
 
@@ -539,6 +623,7 @@
         e.preventDefault();
       });
       
+      // Add shine effect to all tiles on click
       const tiles = document.querySelectorAll('.tile');
       tiles.forEach(tile => {
         tile.addEventListener('mousedown', function() {
@@ -549,6 +634,29 @@
         });
         tile.addEventListener('mouseleave', function() {
           this.style.transform = '';
+        });
+        
+        // Trigger shine effect on click/tap
+        tile.addEventListener('click', function(e) {
+          // Only proceed if this is a left click (ignore right clicks)
+          if (e.button !== 0) return;
+          
+          // Remove any existing shine effects
+          const existingShines = this.querySelectorAll('.shine-effect');
+          existingShines.forEach(shine => shine.remove());
+          
+          // Create new shine effect
+          const shine = document.createElement('div');
+          shine.className = 'shine-effect';
+          
+          this.appendChild(shine);
+          
+          // Remove after animation completes
+          setTimeout(() => {
+            if (shine.parentNode === this) {
+              this.removeChild(shine);
+            }
+          }, 700);
         });
       });
 
@@ -567,7 +675,7 @@
         scrollVelocity = 0;
         lastScrollTime = Date.now();
         lastScrollPosition = touchStartPosition;
-      }, { passive: true });
+      }, { passive: false });
 
       document.body.addEventListener('touchmove', function(e) {
         if (!isScrolling) return;
@@ -625,7 +733,26 @@
           
           requestAnimationFrame(animateMomentum);
         }
-      }, { passive: true });
+      }, { passive: false });
+
+      // Prevent wheel events from causing scrollbar to appear
+      document.body.addEventListener('wheel', function(e) {
+        e.preventDefault();
+        window.scrollBy(0, e.deltaY);
+      }, { passive: false });
+
+      // Additional scrollbar hiding for all possible elements
+      const style = document.createElement('style');
+      style.textContent = `
+        *::-webkit-scrollbar {
+          display: none !important;
+          width: 0 !important;
+          height: 0 !important;
+          -webkit-appearance: none;
+          background: transparent;
+        }
+      `;
+      document.head.appendChild(style);
     });
   </script>
 </body>
