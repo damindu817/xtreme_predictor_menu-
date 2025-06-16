@@ -103,67 +103,29 @@
       overflow: hidden;
     }
 
-    /* Enhanced Title Box Shine Effect */
-    .title-box::before {
+    /* Header shine effect only (no rotation) */
+    .title-box::after {
       content: '';
       position: absolute;
       top: 0;
       left: -100%;
-      width: 100%;
+      width: 50%;
       height: 100%;
       background: linear-gradient(
-        90deg,
+        to right,
         rgba(255, 255, 255, 0) 0%,
         rgba(255, 255, 255, 0.1) 50%,
         rgba(255, 255, 255, 0) 100%
       );
       transform: skewX(-25deg);
-      transition: all 0.8s ease;
-      opacity: 0;
+      animation: shineLoop 6s infinite;
       z-index: 1;
     }
 
-    .title-box.active-shine::before {
-      animation: titleShine 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    @keyframes titleShine {
-      0% {
-        left: -100%;
-        opacity: 0.8;
-      }
-      70% {
-        left: 100%;
-        opacity: 0.8;
-      }
-      100% {
-        left: 100%;
-        opacity: 0;
-      }
-    }
-
-    .title-box::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 45, 117, 0.15) 0%, transparent 70%);
-      animation: pulseGlow 8s infinite alternate;
-      z-index: 0;
-      opacity: 0;
-      transition: opacity 0.6s ease;
-    }
-
-    .title-box.loaded::after {
-      opacity: 0.5;
-    }
-
-    @keyframes pulseGlow {
-      0% { opacity: 0.3; }
-      50% { opacity: 0.6; }
-      100% { opacity: 0.3; }
+    @keyframes shineLoop {
+      0% { left: -100%; opacity: 0.6; }
+      20% { opacity: 0.8; }
+      100% { left: 150%; opacity: 0; }
     }
 
     .title-box h1 {
@@ -260,46 +222,8 @@
       text-decoration: none !important;
     }
 
-    /* Enhanced Tile Shine Effect */
+    /* Tile background gradient */
     .tile::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0) 0%,
-        rgba(255, 255, 255, 0.15) 50%,
-        rgba(255, 255, 255, 0) 100%
-      );
-      transform: skewX(-15deg);
-      transition: all 0.6s ease;
-      opacity: 0;
-      z-index: 1;
-    }
-
-    .tile.active-shine::before {
-      animation: tileShine 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-    }
-
-    @keyframes tileShine {
-      0% {
-        left: -100%;
-        opacity: 0.8;
-      }
-      70% {
-        left: 100%;
-        opacity: 0.8;
-      }
-      100% {
-        left: 100%;
-        opacity: 0;
-      }
-    }
-
-    .tile::after {
       content: '';
       position: absolute;
       top: 0;
@@ -307,9 +231,12 @@
       width: 100%;
       height: 100%;
       background: var(--card-gradient);
-      z-index: 0;
+      z-index: -1;
       opacity: 0.5;
     }
+
+    /* Removed continuous shine effect from tiles */
+    /* Only show shine on click via JavaScript */
 
     .tile:hover {
       transform: translateY(-5px);
@@ -416,6 +343,30 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    /* Shine effect for click */
+    .shine-effect {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      transform: skewX(-25deg);
+      animation: clickShine 0.7s;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    @keyframes clickShine {
+      0% { left: -100%; opacity: 0.6; }
+      100% { left: 150%; opacity: 0; }
     }
 
     footer {
@@ -709,55 +660,45 @@
     document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.add('fade-in');
       
-      // Activate title box glow after page load
-      setTimeout(() => {
-        document.querySelector('.title-box').classList.add('loaded');
-      }, 500);
-      
       document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
       });
       
-      // Enhanced shine effect for tiles
+      // Add shine effect to all tiles on click
       const tiles = document.querySelectorAll('.tile');
       tiles.forEach(tile => {
         tile.addEventListener('mousedown', function() {
           this.style.transform = 'translateY(2px)';
         });
-        
         tile.addEventListener('mouseup', function() {
-          this.style.transform = 'translateY(-5px)';
+          this.style.transform = '';
         });
-        
         tile.addEventListener('mouseleave', function() {
           this.style.transform = '';
         });
         
-        // Click effect with smooth removal
+        // Trigger shine effect on click/tap
         tile.addEventListener('click', function(e) {
-          // Prevent default if not a link
-          if (this.getAttribute('href') === '#') {
-            e.preventDefault();
-          }
+          // Only proceed if this is a left click (ignore right clicks)
+          if (e.button !== 0) return;
           
-          // Add active class for shine animation
-          this.classList.add('active-shine');
+          // Remove any existing shine effects
+          const existingShines = this.querySelectorAll('.shine-effect');
+          existingShines.forEach(shine => shine.remove());
           
-          // Remove active class after animation completes
+          // Create new shine effect
+          const shine = document.createElement('div');
+          shine.className = 'shine-effect';
+          
+          this.appendChild(shine);
+          
+          // Remove after animation completes
           setTimeout(() => {
-            this.classList.remove('active-shine');
-          }, 800);
+            if (shine.parentNode === this) {
+              this.removeChild(shine);
+            }
+          }, 700);
         });
-      });
-
-      // Title box click effect
-      const titleBox = document.querySelector('.title-box');
-      titleBox.addEventListener('click', function() {
-        this.classList.add('active-shine');
-        
-        setTimeout(() => {
-          this.classList.remove('active-shine');
-        }, 1200);
       });
 
       // Enhanced touch scrolling with momentum
