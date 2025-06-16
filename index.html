@@ -103,30 +103,43 @@
       overflow: hidden;
     }
 
-    /* Enhanced Shine effect for title box */
+    /* Enhanced Title Box Shine Effect */
     .title-box::before {
       content: '';
       position: absolute;
       top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
       background: linear-gradient(
-        120deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,0.1) 45%,
-        rgba(255,255,255,0.05) 50%,
-        rgba(255,255,255,0) 100%
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
       );
-      transform: translateX(-100%) skewX(-25deg);
-      animation: titleShine 6s infinite 1s;
+      transform: skewX(-25deg);
+      transition: all 0.8s ease;
+      opacity: 0;
       z-index: 1;
     }
 
+    .title-box.active-shine::before {
+      animation: titleShine 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+
     @keyframes titleShine {
-      0% { transform: translateX(-100%) skewX(-25deg); }
-      20% { transform: translateX(100%) skewX(-25deg); }
-      100% { transform: translateX(100%) skewX(-25deg); }
+      0% {
+        left: -100%;
+        opacity: 0.8;
+      }
+      70% {
+        left: 100%;
+        opacity: 0.8;
+      }
+      100% {
+        left: 100%;
+        opacity: 0;
+      }
     }
 
     .title-box::after {
@@ -139,12 +152,18 @@
       background: radial-gradient(circle at 50% 50%, rgba(255, 45, 117, 0.15) 0%, transparent 70%);
       animation: pulseGlow 8s infinite alternate;
       z-index: 0;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+
+    .title-box.loaded::after {
+      opacity: 0.5;
     }
 
     @keyframes pulseGlow {
-      0% { opacity: 0.5; }
-      50% { opacity: 0.8; }
-      100% { opacity: 0.5; }
+      0% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+      100% { opacity: 0.3; }
     }
 
     .title-box h1 {
@@ -159,12 +178,6 @@
       text-shadow: 0 0 10px rgba(255, 45, 117, 0.3);
       position: relative;
       z-index: 2;
-      animation: textGlow 3s infinite alternate;
-    }
-
-    @keyframes textGlow {
-      from { text-shadow: 0 0 10px rgba(255, 45, 117, 0.3); }
-      to { text-shadow: 0 0 15px rgba(255, 45, 117, 0.6), 0 0 20px rgba(156, 39, 176, 0.4); }
     }
 
     .tagline {
@@ -247,35 +260,43 @@
       text-decoration: none !important;
     }
 
-    /* Enhanced Shine effect for tiles */
+    /* Enhanced Tile Shine Effect */
     .tile::before {
       content: '';
       position: absolute;
       top: 0;
-      left: 0;
+      left: -100%;
       width: 100%;
       height: 100%;
       background: linear-gradient(
-        120deg,
-        rgba(255,255,255,0) 0%,
-        rgba(255,255,255,0.1) 45%,
-        rgba(255,255,255,0.05) 50%,
-        rgba(255,255,255,0) 100%
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.15) 50%,
+        rgba(255, 255, 255, 0) 100%
       );
-      transform: translateX(-100%) skewX(-15deg);
-      transition: all 0.5s ease;
+      transform: skewX(-15deg);
+      transition: all 0.6s ease;
       opacity: 0;
       z-index: 1;
     }
 
-    .tile:hover::before {
-      animation: tileShine 0.75s;
-      opacity: 1;
+    .tile.active-shine::before {
+      animation: tileShine 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     }
 
     @keyframes tileShine {
-      0% { transform: translateX(-100%) skewX(-15deg); }
-      100% { transform: translateX(200%) skewX(-15deg); }
+      0% {
+        left: -100%;
+        opacity: 0.8;
+      }
+      70% {
+        left: 100%;
+        opacity: 0.8;
+      }
+      100% {
+        left: 100%;
+        opacity: 0;
+      }
     }
 
     .tile::after {
@@ -688,47 +709,55 @@
     document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.add('fade-in');
       
+      // Activate title box glow after page load
+      setTimeout(() => {
+        document.querySelector('.title-box').classList.add('loaded');
+      }, 500);
+      
       document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
       });
       
-      // Add shine effect to all tiles on click
+      // Enhanced shine effect for tiles
       const tiles = document.querySelectorAll('.tile');
       tiles.forEach(tile => {
         tile.addEventListener('mousedown', function() {
           this.style.transform = 'translateY(2px)';
         });
+        
         tile.addEventListener('mouseup', function() {
-          this.style.transform = '';
+          this.style.transform = 'translateY(-5px)';
         });
+        
         tile.addEventListener('mouseleave', function() {
           this.style.transform = '';
         });
         
-        // Enhanced shine effect on hover
-        tile.addEventListener('mouseenter', function() {
-          const shine = document.createElement('div');
-          shine.className = 'shine-effect';
-          shine.style.position = 'absolute';
-          shine.style.top = '0';
-          shine.style.left = '0';
-          shine.style.width = '100%';
-          shine.style.height = '100%';
-          shine.style.background = 'linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 45%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%)';
-          shine.style.transform = 'translateX(-100%) skewX(-15deg)';
-          shine.style.animation = 'tileShine 0.75s';
-          shine.style.zIndex = '1';
-          shine.style.pointerEvents = 'none';
+        // Click effect with smooth removal
+        tile.addEventListener('click', function(e) {
+          // Prevent default if not a link
+          if (this.getAttribute('href') === '#') {
+            e.preventDefault();
+          }
           
-          this.appendChild(shine);
+          // Add active class for shine animation
+          this.classList.add('active-shine');
           
-          // Remove after animation completes
+          // Remove active class after animation completes
           setTimeout(() => {
-            if (shine.parentNode === this) {
-              this.removeChild(shine);
-            }
-          }, 750);
+            this.classList.remove('active-shine');
+          }, 800);
         });
+      });
+
+      // Title box click effect
+      const titleBox = document.querySelector('.title-box');
+      titleBox.addEventListener('click', function() {
+        this.classList.add('active-shine');
+        
+        setTimeout(() => {
+          this.classList.remove('active-shine');
+        }, 1200);
       });
 
       // Enhanced touch scrolling with momentum
