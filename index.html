@@ -399,6 +399,103 @@
       100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
     }
 
+    /* Disclaimer Button Styles */
+    .disclaimer-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 58, 58, 0.9), rgba(156, 39, 176, 0.9));
+      color: white;
+      box-shadow: 0 4px 15px rgba(255, 58, 58, 0.4);
+      text-decoration: none;
+      transition: var(--transition);
+      padding-bottom: env(safe-area-inset-bottom, 0);
+    }
+
+    .disclaimer-btn:hover {
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 0 20px rgba(255, 58, 58, 0.6);
+    }
+
+    .disclaimer-icon {
+      font-size: 1.2rem;
+      animation: pulseWarning 2s infinite;
+    }
+
+    .disclaimer-tooltip {
+      position: absolute;
+      right: 60px;
+      white-space: nowrap;
+      background: rgba(20, 10, 30, 0.95);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 58, 58, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transform: translateX(10px);
+    }
+
+    .disclaimer-btn:hover .disclaimer-tooltip {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* Auto-show Disclaimer Popup */
+    .disclaimer-popup {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(20, 10, 30, 0.95);
+      border: 1px solid rgba(255, 58, 58, 0.3);
+      border-radius: 10px;
+      padding: 15px;
+      max-width: 280px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(6px);
+      transform: translateY(20px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    .disclaimer-popup.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .disclaimer-popup.hide {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
+    .disclaimer-popup p {
+      margin: 0;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: var(--text-light);
+    }
+
+    .disclaimer-popup i {
+      color: var(--locked);
+      margin-right: 8px;
+    }
+
+    @keyframes pulseWarning {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+
     @media (max-width: 480px) {
       body {
         padding: 60px 12px 20px;
@@ -411,6 +508,25 @@
       }
       .tiles-container {
         grid-template-columns: 1fr;
+      }
+      .disclaimer-btn {
+        width: 45px;
+        height: 45px;
+        bottom: 15px;
+        right: 15px;
+      }
+      
+      .disclaimer-tooltip {
+        font-size: 0.75rem;
+        right: 50px;
+        white-space: normal;
+        width: 150px;
+      }
+      
+      .disclaimer-popup {
+        bottom: 70px;
+        right: 15px;
+        max-width: 200px;
       }
     }
   </style>
@@ -615,6 +731,19 @@
     </p>
   </footer>
 
+  <!-- Disclaimer Button -->
+  <a href="https://damindu817.github.io/disclaimer-page/" target="_blank" class="disclaimer-btn">
+    <div class="disclaimer-icon">
+      <i class="fas fa-exclamation-triangle"></i>
+    </div>
+    <span class="disclaimer-tooltip">DISCLAIMER: Gambling involves risk. Please play responsibly.</span>
+  </a>
+
+  <!-- Auto-show Disclaimer Popup -->
+  <div class="disclaimer-popup" id="disclaimerPopup">
+    <p><i class="fas fa-exclamation-circle"></i>DISCLAIMER: Gambling involves risk. Please play responsibly.</p>
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.add('fade-in');
@@ -622,6 +751,18 @@
       document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
       });
+      
+      // Auto-show disclaimer popup after 3 seconds
+      setTimeout(function() {
+        const popup = document.getElementById('disclaimerPopup');
+        popup.classList.add('show');
+        
+        // Hide after 6 seconds
+        setTimeout(function() {
+          popup.classList.remove('show');
+          popup.classList.add('hide');
+        }, 6000);
+      }, 3000);
       
       // Add shine effect to all tiles on click
       const tiles = document.querySelectorAll('.tile');
