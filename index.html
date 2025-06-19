@@ -31,14 +31,14 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      -ms-overflow-style: none; /* IE and Edge */
-      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none;
+      scrollbar-width: none;
       -webkit-tap-highlight-color: transparent;
       -webkit-touch-callout: none;
     }
     
     *::-webkit-scrollbar {
-      display: none; /* Chrome, Safari and Opera */
+      display: none;
       width: 0 !important;
       height: 0 !important;
       background: transparent;
@@ -466,9 +466,11 @@
       transform: translateY(20px);
       opacity: 0;
       transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      display: none;
     }
 
     .disclaimer-popup.show {
+      display: block;
       transform: translateY(0);
       opacity: 1;
     }
@@ -643,7 +645,6 @@
     </div>
   </div>
 
-  <!-- New Hash & Analysis Tools Section -->
   <div class="category">
     <h2 class="category-title">
       <i class="fas fa-chart-line"></i>
@@ -732,7 +733,7 @@
   </footer>
 
   <!-- Disclaimer Button -->
-  <a href="https://damindu817.github.io/DISCLAIMER-/" target="_blank" class="disclaimer-btn">
+  <a href="https://damindu817.github.io/disclaimer-page/" target="_blank" class="disclaimer-btn" id="disclaimerButton">
     <div class="disclaimer-icon">
       <i class="fas fa-exclamation-triangle"></i>
     </div>
@@ -748,21 +749,32 @@
     document.addEventListener('DOMContentLoaded', function() {
       document.body.classList.add('fade-in');
       
+      // Prevent context menu
       document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
       });
       
-      // Auto-show disclaimer popup after 3 seconds
-      setTimeout(function() {
-        const popup = document.getElementById('disclaimerPopup');
-        popup.classList.add('show');
+      // Check if this is the initial page load (not a back navigation)
+      if (performance.navigation.type === performance.navigation.TYPE_NAVIGATE || 
+          performance.navigation.type === performance.navigation.TYPE_RELOAD) {
         
-        // Hide after 6 seconds
+        // Auto-show disclaimer popup after 3 seconds only on initial load
         setTimeout(function() {
-          popup.classList.remove('show');
-          popup.classList.add('hide');
-        }, 6000);
-      }, 3000);
+          const popup = document.getElementById('disclaimerPopup');
+          popup.classList.add('show');
+          
+          // Hide after 6 seconds
+          setTimeout(function() {
+            popup.classList.remove('show');
+            popup.classList.add('hide');
+            
+            // Remove element after animation completes
+            setTimeout(function() {
+              popup.style.display = 'none';
+            }, 500);
+          }, 6000);
+        }, 3000);
+      }
       
       // Add shine effect to all tiles on click
       const tiles = document.querySelectorAll('.tile');
@@ -777,22 +789,16 @@
           this.style.transform = '';
         });
         
-        // Trigger shine effect on click/tap
         tile.addEventListener('click', function(e) {
-          // Only proceed if this is a left click (ignore right clicks)
           if (e.button !== 0) return;
           
-          // Remove any existing shine effects
           const existingShines = this.querySelectorAll('.shine-effect');
           existingShines.forEach(shine => shine.remove());
           
-          // Create new shine effect
           const shine = document.createElement('div');
           shine.className = 'shine-effect';
-          
           this.appendChild(shine);
           
-          // Remove after animation completes
           setTimeout(() => {
             if (shine.parentNode === this) {
               this.removeChild(shine);
@@ -825,7 +831,6 @@
         const deltaY = startY - y;
         const newScrollPosition = touchStartPosition + deltaY;
         
-        // Calculate scroll velocity
         const now = Date.now();
         const timeDiff = now - lastScrollTime;
         if (timeDiff > 0) {
@@ -834,7 +839,6 @@
           lastScrollTime = now;
         }
         
-        // Prevent overscrolling
         if (newScrollPosition <= 0 || newScrollPosition >= document.body.scrollHeight - window.innerHeight) {
           e.preventDefault();
           return;
@@ -847,7 +851,6 @@
       document.body.addEventListener('touchend', function() {
         isScrolling = false;
         
-        // Apply momentum scrolling
         if (Math.abs(scrollVelocity) > 0.1) {
           const momentumDuration = 300;
           const startTime = Date.now();
