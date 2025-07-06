@@ -218,13 +218,14 @@
       letter-spacing: 0.3px;
     }
 
+    /* Changed to circular icon with full background */
     .category-title .title-icon {
       width: 36px;
       height: 36px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 10px;
+      border-radius: 50%;
       color: white;
       font-size: 1rem;
       box-shadow: var(--shadow);
@@ -327,10 +328,11 @@
       z-index: 1;
     }
 
+    /* Changed to circular icon with full background */
     .tile-icon {
       width: 48px;
       height: 48px;
-      border-radius: 12px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -420,27 +422,45 @@
       text-decoration: none;
     }
 
+    /* Updated platform badge style to match demo */
     .platform-badge {
-      padding: 4px 8px;
-      border-radius: 4px;
+      padding: 4px 12px;
+      border-radius: 20px;
       font-size: 0.7rem;
-      font-weight: 600;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
+      background: transparent;
+      border: 2px solid;
     }
 
     .platform-1xbet {
-      background: linear-gradient(135deg, var(--1xbet-primary), var(--1xbet-secondary));
+      border-color: var(--1xbet-primary);
+    }
+    .platform-1xbet .onex {
       color: white;
+    }
+    .platform-1xbet .bet {
+      color: var(--1xbet-primary);
     }
 
     .platform-melbet {
-      background: linear-gradient(135deg, var(--melbet-bg), #2D3436);
+      border-color: var(--melbet-text2);
+    }
+    .platform-melbet .mel {
       color: white;
+    }
+    .platform-melbet .bet {
+      color: var(--melbet-text2);
     }
 
     .platform-888starz {
-      background: linear-gradient(135deg, var(--888starz-primary), #FF7675);
+      border-color: var(--888starz-primary);
+    }
+    .platform-888starz .eight {
+      color: var(--red-eight);
+    }
+    .platform-888starz .starz {
       color: white;
     }
 
@@ -818,7 +838,7 @@
           </div>
           <div class="tile-footer">
             <span class="tile-provider">
-              <span class="platform-badge platform-1xbet">1XBET</span>
+              <span class="platform-badge platform-1xbet"><span class="onex">1X</span><span class="bet">BET</span></span>
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
@@ -840,7 +860,7 @@
           </div>
           <div class="tile-footer">
             <span class="tile-provider">
-              <span class="platform-badge platform-1xbet">1XBET</span>
+              <span class="platform-badge platform-1xbet"><span class="onex">1X</span><span class="bet">BET</span></span>
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
@@ -862,7 +882,7 @@
           </div>
           <div class="tile-footer">
             <span class="tile-provider">
-              <span class="platform-badge platform-1xbet">1XBET</span>
+              <span class="platform-badge platform-1xbet"><span class="onex">1X</span><span class="bet">BET</span></span>
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
@@ -884,7 +904,7 @@
           </div>
           <div class="tile-footer">
             <span class="tile-provider">
-              <span class="platform-badge platform-1xbet">1XBET</span>
+              <span class="platform-badge platform-1xbet"><span class="onex">1X</span><span class="bet">BET</span></span>
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
@@ -906,7 +926,7 @@
           </div>
           <div class="tile-footer">
             <span class="tile-provider">
-              <span class="platform-badge platform-1xbet">1XBET</span>
+              <span class="platform-badge platform-1xbet"><span class="onex">1X</span><span class="bet">BET</span></span>
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
@@ -927,7 +947,7 @@
           </div>
           <div class="tile-footer">
             <span class="tile-provider">
-              <span class="platform-badge platform-1xbet">1XBET</span>
+              <span class="platform-badge platform-1xbet"><span class="onex">1X</span><span class="bet">BET</span></span>
             </span>
             <span class="tile-badge badge-premium">
               <i class="fas fa-lock"></i>
