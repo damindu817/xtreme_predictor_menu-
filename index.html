@@ -8,6 +8,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     :root {
+      --primary-gradient: linear-gradient(135deg, #6C5CE7 0%, #0984E3 100%);
+      --secondary-gradient: linear-gradient(135deg, #FF7675 0%, #FDCB6E 100%);
+      --success-gradient: linear-gradient(135deg, #00B894 0%, #55EFC4 100%);
+      --warning-gradient: linear-gradient(135deg, #FDCB6E 0%, #FFEAA7 100%);
+      --danger-gradient: linear-gradient(135deg, #D63031 0%, #FF7675 100%);
+      --dark-gradient: linear-gradient(135deg, #121212 0%, #2D3436 100%);
+      
       --1xbet-primary: #154c79;
       --1xbet-secondary: #1E88E5;
       --melbet-bg: #1E2124;
@@ -15,21 +22,28 @@
       --melbet-text2: #FFC300;
       --888starz-primary: #E53935;
       --888starz-secondary: #FFFFFF;
+      
       --dark-bg: #121212;
       --darker-bg: #0A0A0A;
       --card-bg: #1E1E1E;
       --card-hover: #2A2A2A;
       --text-light: #FFFFFF;
-      --text-lighter: #FFFFFF;
+      --text-lighter: rgba(255, 255, 255, 0.9);
+      --text-muted: rgba(255, 255, 255, 0.6);
       --success: #00B894;
       --warning: #FDCB6E;
       --danger: #D63031;
       --coming-soon: #636E72;
-      --nav-bg: #1A1A1A;
+      --nav-bg: rgba(26, 26, 26, 0.95);
       --nav-active: #6C5CE7;
-      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-      --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.3);
+      --glass-bg: rgba(30, 30, 30, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      
+      --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-fast: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.4);
+      --shadow-inset: inset 0 2px 4px rgba(0, 0, 0, 0.2);
       --red-eight: #FF0000;
       --white-text: #FFFFFF;
     }
@@ -51,7 +65,8 @@
     html, body {
       height: 100%;
       overflow: hidden;
-      background-color: var(--dark-bg);
+      background: var(--dark-gradient);
+      background-attachment: fixed;
     }
     
     body {
@@ -69,37 +84,47 @@
 
     /* App Header */
     .app-header {
-      padding: 15px 20px;
-      background: var(--darker-bg);
+      padding: 18px 24px;
+      background: var(--nav-bg);
       position: sticky;
       top: 0;
       z-index: 100;
       box-shadow: var(--shadow);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid var(--glass-border);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .header-title {
-      font-weight: 600;
-      font-size: 1.2rem;
+      font-weight: 700;
+      font-size: 1.4rem;
       color: var(--text-lighter);
+      letter-spacing: 0.5px;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 2px 10px rgba(108, 92, 231, 0.2);
     }
 
     /* Platform Tabs */
     .platform-tabs {
-      padding: 15px 20px;
-      background: var(--darker-bg);
+      padding: 16px 24px;
+      background: var(--nav-bg);
       position: sticky;
-      top: 62px;
+      top: 72px;
       z-index: 90;
       display: flex;
-      gap: 10px;
+      gap: 12px;
       overflow-x: auto;
       scrollbar-width: none;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid var(--glass-border);
       justify-content: center;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .platform-tabs::-webkit-scrollbar {
@@ -107,57 +132,63 @@
     }
 
     .platform-tab {
-      padding: 8px 16px;
-      border-radius: 8px;
-      background: var(--card-bg);
+      padding: 10px 20px;
+      border-radius: 12px;
+      background: var(--glass-bg);
       color: var(--text-light);
-      font-weight: 500;
-      font-size: 0.85rem;
+      font-weight: 600;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: var(--transition);
-      border: none;
+      border: 1px solid var(--glass-border);
       outline: none;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       white-space: nowrap;
       flex-shrink: 0;
-      min-width: 110px;
+      min-width: 120px;
       justify-content: center;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .platform-tab:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
     }
 
     .platform-tab.active {
       color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
     }
 
     .platform-tab[data-platform="1xbet"].active {
       background: var(--1xbet-primary);
+      border-color: rgba(30, 136, 229, 0.3);
     }
 
     .platform-tab[data-platform="melbet"].active {
       background: var(--melbet-bg);
+      border-color: rgba(255, 195, 0, 0.3);
     }
 
     .platform-tab[data-platform="888starz"].active {
       background: var(--888starz-primary);
       color: var(--888starz-secondary);
-    }
-
-    /* Special styling for 888Starz text when active */
-    .platform-tab[data-platform="888starz"].active .starz-text .eight,
-    .platform-tab[data-platform="888starz"].active .starz-text .starz {
-      color: var(--white-text);
+      border-color: rgba(229, 57, 53, 0.3);
     }
 
     .platform-tab .tab-icon {
-      font-size: 0.9rem;
+      font-size: 1rem;
     }
 
     /* Main Content */
     .content {
-      padding: 20px;
+      padding: 24px;
       flex: 1;
-      padding-bottom: 80px; /* Space for bottom nav */
+      padding-bottom: 90px;
       overflow-y: auto;
     }
 
@@ -165,7 +196,7 @@
       margin-bottom: 30px;
       width: 100%;
       display: none;
-      animation: fadeIn 0.4s ease-out;
+      animation: fadeIn 0.6s ease-out forwards;
     }
 
     .category.active {
@@ -173,83 +204,116 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .category-title {
-      font-weight: 600;
+      font-weight: 700;
       color: var(--text-lighter);
-      margin-bottom: 20px;
-      font-size: 1.1rem;
+      margin-bottom: 24px;
+      font-size: 1.3rem;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       position: relative;
+      letter-spacing: 0.3px;
     }
 
     .category-title .title-icon {
-      width: 32px;
-      height: 32px;
+      width: 40px;
+      height: 40px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 8px;
+      border-radius: 12px;
       color: white;
-      font-size: 1rem;
+      font-size: 1.2rem;
+      box-shadow: var(--shadow);
     }
 
     #category-home .title-icon {
-      background: linear-gradient(135deg, #6C5CE7, #FD79A8);
+      background: var(--primary-gradient);
     }
 
     #category-popular .title-icon {
-      background: linear-gradient(135deg, #FF7675, #FDCB6E);
+      background: var(--secondary-gradient);
     }
 
     #category-notifications .title-icon {
-      background: linear-gradient(135deg, #00B894, #0984E3);
+      background: var(--success-gradient);
     }
 
     #category-1xbet .title-icon {
-      background: var(--1xbet-primary);
+      background: linear-gradient(135deg, var(--1xbet-primary), var(--1xbet-secondary));
     }
 
     #category-melbet .title-icon {
-      background: var(--melbet-bg);
+      background: linear-gradient(135deg, var(--melbet-bg), #2D3436);
     }
 
     #category-888starz .title-icon {
-      background: var(--888starz-primary);
+      background: linear-gradient(135deg, var(--888starz-primary), #FF7675);
     }
 
     /* Game Tiles */
     .tiles-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
     }
 
     .tile {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 20px;
+      background: var(--glass-bg);
+      border-radius: 16px;
+      padding: 24px;
       transition: var(--transition);
       box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
       cursor: pointer;
-      border: 1px solid rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .tile::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-gradient);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .tile[data-platform="1xbet"]::before {
+      background: linear-gradient(90deg, var(--1xbet-primary), var(--1xbet-secondary));
+    }
+
+    .tile[data-platform="melbet"]::before {
+      background: linear-gradient(90deg, var(--melbet-bg), #FFC300);
+    }
+
+    .tile[data-platform="888starz"]::before {
+      background: linear-gradient(90deg, var(--888starz-primary), #FF7675);
     }
 
     .tile:hover {
-      transform: translateY(-5px);
-      background: var(--card-hover);
+      transform: translateY(-8px);
       box-shadow: var(--shadow-lg);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .tile:hover::before {
+      opacity: 1;
     }
 
     .tile.favorite {
       border: 1px solid rgba(108, 92, 231, 0.5);
+      background: rgba(108, 92, 231, 0.1);
     }
 
     .tile.coming-soon {
@@ -260,34 +324,35 @@
     .tile-header {
       display: flex;
       align-items: flex-start;
-      margin-bottom: 15px;
+      margin-bottom: 18px;
       position: relative;
       z-index: 1;
     }
 
     .tile-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       flex-shrink: 0;
-      margin-right: 15px;
+      margin-right: 18px;
+      box-shadow: var(--shadow);
     }
 
     .tile[data-platform="1xbet"] .tile-icon {
-      background: var(--1xbet-primary);
+      background: linear-gradient(135deg, var(--1xbet-primary), var(--1xbet-secondary));
     }
 
     .tile[data-platform="melbet"] .tile-icon {
-      background: var(--melbet-bg);
+      background: linear-gradient(135deg, var(--melbet-bg), #2D3436);
     }
 
     .tile[data-platform="888starz"] .tile-icon {
-      background: var(--888starz-primary);
+      background: linear-gradient(135deg, var(--888starz-primary), #FF7675);
     }
 
     .tile-title-wrapper {
@@ -295,21 +360,22 @@
     }
 
     .tile-title {
-      font-weight: 600;
-      font-size: 1.1rem;
+      font-weight: 700;
+      font-size: 1.2rem;
       color: var(--text-lighter);
       margin: 0;
+      letter-spacing: 0.3px;
     }
 
     .tile-subtitle {
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.7);
-      margin-top: 5px;
-      line-height: 1.5;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.6;
     }
 
     .tile-footer {
-      margin-top: 20px;
+      margin-top: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -318,14 +384,15 @@
     }
 
     .tile-badge {
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       text-decoration: none;
+      transition: var(--transition-fast);
     }
 
     .badge-free {
@@ -347,34 +414,36 @@
     }
 
     .tile-provider {
-      font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.85rem;
+      color: var(--text-muted);
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       text-decoration: none;
     }
 
     .platform-badge {
-      padding: 4px 10px;
-      border-radius: 4px;
-      font-size: 0.7rem;
-      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
+      box-shadow: var(--shadow-inset);
     }
 
     .platform-1xbet {
-      background: var(--1xbet-primary);
+      background: linear-gradient(135deg, var(--1xbet-primary), var(--1xbet-secondary));
       color: white;
     }
 
     .platform-melbet {
-      background: var(--melbet-bg);
+      background: linear-gradient(135deg, var(--melbet-bg), #2D3436);
       color: white;
     }
 
     .platform-888starz {
-      background: var(--888starz-primary);
+      background: linear-gradient(135deg, var(--888starz-primary), #FF7675);
       color: white;
     }
 
@@ -402,33 +471,42 @@
 
     .favorite-toggle {
       position: absolute;
-      top: 15px;
-      right: 15px;
-      width: 32px;
-      height: 32px;
+      top: 18px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0.4);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 1.1rem;
       cursor: pointer;
       transition: var(--transition);
       z-index: 2;
       border: none;
       outline: none;
       backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
 
     .favorite-toggle:hover {
-      background: rgba(0, 0, 0, 0.5);
-      color: rgba(255, 255, 255, 0.8);
+      background: rgba(0, 0, 0, 0.6);
+      color: rgba(255, 255, 255, 0.9);
+      transform: scale(1.1);
     }
 
     .tile.favorite .favorite-toggle {
       color: var(--warning);
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
 
     .tile.coming-soon::after {
@@ -438,20 +516,21 @@
       right: 0;
       background: var(--coming-soon);
       color: white;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-bottom-left-radius: 10px;
-      border-top-right-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-bottom-left-radius: 12px;
+      border-top-right-radius: 12px;
       text-transform: uppercase;
       letter-spacing: 1px;
+      box-shadow: var(--shadow-inset);
     }
 
     /* Animation for tiles */
     .tile {
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 0.6s forwards;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s forwards;
     }
 
     @keyframes fadeInUp {
@@ -464,49 +543,32 @@
     /* No results message */
     .no-results {
       text-align: center;
-      padding: 40px 20px;
-      color: rgba(255, 255, 255, 0.5);
-      font-size: 0.95rem;
+      padding: 50px 24px;
+      color: var(--text-muted);
+      font-size: 1rem;
       grid-column: 1 / -1;
-      background: var(--card-bg);
-      border-radius: 12px;
+      background: var(--glass-bg);
+      border-radius: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 15px;
+      gap: 18px;
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
     }
 
     .no-results-icon {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       border-radius: 50%;
       background: rgba(21, 76, 121, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       color: var(--1xbet-primary);
-    }
-
-    /* Platform-specific text colors */
-    .melbet-text {
-      display: inline-flex;
-    }
-    .melbet-text .mel {
-      color: var(--melbet-text1);
-    }
-    .melbet-text .bet {
-      color: var(--melbet-text2);
-    }
-
-    .starz-text {
-      display: inline-flex;
-    }
-    .starz-text .eight {
-      color: var(--red-eight);
-    }
-    .starz-text .starz {
-      color: var(--white-text);
+      box-shadow: var(--shadow);
     }
 
     /* Bottom Navigation */
@@ -518,68 +580,151 @@
       background: var(--nav-bg);
       display: flex;
       justify-content: space-around;
-      padding: 12px 0;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 14px 0;
+      border-top: 1px solid var(--glass-border);
       z-index: 100;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .nav-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: rgba(255, 255, 255, 0.6);
+      color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       transition: var(--transition);
+      position: relative;
+      flex: 1;
     }
 
     .nav-item.active {
       color: var(--nav-active);
+      transform: translateY(-5px);
+    }
+
+    .nav-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -14px;
+      width: 6px;
+      height: 6px;
+      background: var(--nav-active);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--nav-active);
     }
 
     .nav-icon {
-      font-size: 1.2rem;
-      margin-bottom: 4px;
+      font-size: 1.4rem;
+      margin-bottom: 6px;
+      transition: var(--transition);
+    }
+
+    .nav-item.active .nav-icon {
+      transform: scale(1.1);
+    }
+
+    /* Floating action button */
+    .fab {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--primary-gradient);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      z-index: 90;
+      transition: var(--transition);
+      border: none;
+      outline: none;
+    }
+
+    .fab:hover {
+      transform: translateY(-5px) scale(1.1);
     }
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
       .tiles-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
       }
       
       .platform-tabs {
-        gap: 8px;
+        gap: 10px;
+        padding: 14px 20px;
+        top: 68px;
       }
       
       .platform-tab {
-        padding: 8px 14px;
-        font-size: 0.8rem;
-        min-width: auto;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        min-width: 110px;
       }
       
       .tile {
-        padding: 18px;
+        padding: 20px;
       }
       
       .app-header {
-        padding: 12px 15px;
+        padding: 16px 20px;
+      }
+      
+      .content {
+        padding: 20px;
+      }
+      
+      .category-title {
+        font-size: 1.2rem;
+      }
+      
+      .tile-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+      
+      .bottom-nav {
+        padding: 12px 0;
+      }
+      
+      .nav-icon {
+        font-size: 1.3rem;
+      }
+      
+      .fab {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+        bottom: 70px;
       }
     }
 
     @media (max-width: 480px) {
       .content {
-        padding: 15px;
+        padding: 16px;
+      }
+      
+      .tiles-container {
+        grid-template-columns: 1fr;
       }
       
       .tile-icon {
-        width: 42px;
-        height: 42px;
-        font-size: 1.1rem;
+        width: 46px;
+        height: 46px;
+        font-size: 1.2rem;
       }
       
       .category-title {
-        font-size: 1rem;
+        font-size: 1.1rem;
       }
       
       .bottom-nav {
@@ -587,7 +732,28 @@
       }
       
       .nav-icon {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+      }
+      
+      .app-header {
+        padding: 14px 16px;
+      }
+      
+      .header-title {
+        font-size: 1.2rem;
+      }
+      
+      .platform-tabs {
+        padding: 12px 16px;
+        justify-content: flex-start;
+      }
+      
+      .fab {
+        width: 46px;
+        height: 46px;
+        font-size: 1.2rem;
+        right: 16px;
+        bottom: 68px;
       }
     }
   </style>
@@ -595,7 +761,7 @@
 <body>
   <!-- App Header -->
   <div class="app-header">
-    <div class="header-title">Gaming Predictors</div>
+    <div class="header-title">PRO GAMING PREDICTORS</div>
   </div>
 
   <!-- Platform Tabs -->
@@ -942,6 +1108,11 @@
     </div>
   </div>
 
+  <!-- Floating Action Button -->
+  <button class="fab" id="refresh-btn">
+    <i class="fas fa-sync-alt"></i>
+  </button>
+
   <!-- Bottom Navigation -->
   <div class="bottom-nav">
     <a href="#" class="nav-item active" id="nav-home">
@@ -954,11 +1125,11 @@
     </a>
     <a href="#" class="nav-item" id="nav-notifications">
       <i class="fas fa-bell nav-icon"></i>
-      <span>Notifications</span>
+      <span>Alerts</span>
     </a>
     <a href="#" class="nav-item">
-      <i class="fas fa-envelope nav-icon"></i>
-      <span>Contact</span>
+      <i class="fas fa-cog nav-icon"></i>
+      <span>Settings</span>
     </a>
   </div>
 
@@ -968,6 +1139,7 @@
       const platformTabs = document.querySelectorAll('.platform-tab');
       const categories = document.querySelectorAll('.category');
       const navItems = document.querySelectorAll('.nav-item');
+      const refreshBtn = document.getElementById('refresh-btn');
       
       // Initialize favorites from localStorage
       let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
@@ -990,6 +1162,12 @@
           // Show corresponding category
           categories.forEach(cat => cat.classList.remove('active'));
           document.getElementById(`category-${platform}`).classList.add('active');
+          
+          // Animate the tab
+          this.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 200);
         });
       });
       
@@ -1001,6 +1179,12 @@
           
           const tile = this.closest('.tile');
           const tileId = tile.href || tile.dataset.platform + '-' + tile.dataset.type;
+          
+          // Animate the button
+          this.style.transform = 'scale(1.2) rotate(15deg)';
+          setTimeout(() => {
+            this.style.transform = '';
+          }, 300);
           
           // Toggle favorite
           const index = favorites.indexOf(tileId);
@@ -1072,6 +1256,12 @@
                 this.style.transform = '';
               }, 100);
             }, 100);
+          } else {
+            // Add click animation for regular tiles
+            this.style.transform = 'scale(0.98)';
+            setTimeout(() => {
+              this.style.transform = '';
+            }, 200);
           }
         });
       });
@@ -1107,6 +1297,41 @@
             document.getElementById('category-1xbet').classList.add('active');
           }
         });
+      });
+      
+      // Refresh button animation
+      refreshBtn.addEventListener('click', function() {
+        this.style.transform = 'rotate(360deg)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 500);
+        
+        // Show a subtle toast notification
+        const toast = document.createElement('div');
+        toast.textContent = 'Refreshing predictors...';
+        toast.style.position = 'fixed';
+        toast.style.bottom = '100px';
+        toast.style.left = '50%';
+        toast.style.transform = 'translateX(-50%)';
+        toast.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        toast.style.color = 'white';
+        toast.style.padding = '10px 20px';
+        toast.style.borderRadius = '20px';
+        toast.style.zIndex = '1000';
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.style.opacity = '1';
+        }, 10);
+        
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => {
+            document.body.removeChild(toast);
+          }, 300);
+        }, 2000);
       });
     });
   </script>
