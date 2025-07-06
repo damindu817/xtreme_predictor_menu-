@@ -186,7 +186,7 @@
     .content {
       padding: 16px;
       flex: 1;
-      padding-bottom: 70px;
+      padding-bottom: 90px; /* Increased padding to prevent overlap with navigation */
       overflow-y: auto;
     }
 
@@ -349,6 +349,7 @@
 
     .tile[data-platform="melbet"] .tile-icon {
       background: linear-gradient(135deg, var(--melbet-bg), #2D3436);
+      border: 2px solid var(--melbet-text2); /* Added yellow outline */
     }
 
     .tile[data-platform="888starz"] .tile-icon {
@@ -461,7 +462,7 @@
       color: var(--red-eight);
     }
     .platform-888starz .starz {
-      color: white;
+      color: var(--white-text);
     }
 
     /* MELBET text styling */
@@ -636,6 +637,24 @@
       box-shadow: 0 0 8px var(--nav-active);
     }
 
+    /* Hot tab specific styles */
+    #nav-popular.active {
+      color: #FF7675;
+    }
+    
+    #nav-popular.active .nav-icon {
+      background: linear-gradient(135deg, #FF7675, #FDCB6E);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transform: scale(1.1);
+    }
+    
+    #nav-popular.active::after {
+      background: linear-gradient(135deg, #FF7675, #FDCB6E);
+      box-shadow: 0 0 8px #FF7675;
+    }
+
     .nav-icon {
       font-size: 1.2rem;
       margin-bottom: 4px;
@@ -675,6 +694,7 @@
       
       .content {
         padding: 14px;
+        padding-bottom: 80px; /* Adjusted for smaller screens */
       }
       
       .category-title {
@@ -699,6 +719,7 @@
     @media (max-width: 480px) {
       .content {
         padding: 12px;
+        padding-bottom: 70px; /* Adjusted for smallest screens */
       }
       
       .tiles-container {
@@ -744,20 +765,24 @@
     <div class="header-title">XTREME PREDICTOR PRO</div>
   </div>
 
-  <!-- Platform Tabs -->
+  <!-- Platform Tabs - Centered -->
   <div class="platform-tabs">
-    <button class="platform-tab active" data-platform="1xbet">
-      <i class="fas fa-coins tab-icon"></i>
-      <span>1XBET</span>
-    </button>
-    <button class="platform-tab" data-platform="melbet">
-      <i class="fas fa-fire tab-icon"></i>
-      <span class="melbet-text"><span class="mel">MEL</span><span class="bet">BET</span></span>
-    </button>
-    <button class="platform-tab" data-platform="888starz">
-      <i class="fas fa-gem tab-icon"></i>
-      <span class="starz-text"><span class="eight">888</span><span class="starz">STARZ</span></span>
-    </button>
+    <div style="flex: 1;"></div> <!-- Left spacer -->
+    <div style="display: flex; gap: 8px;">
+      <button class="platform-tab active" data-platform="1xbet">
+        <i class="fas fa-coins tab-icon"></i>
+        <span>1XBET</span>
+      </button>
+      <button class="platform-tab" data-platform="melbet">
+        <i class="fas fa-fire tab-icon" style="color: #FFC300;"></i> <!-- Yellow icon -->
+        <span class="melbet-text"><span class="mel">MEL</span><span class="bet">BET</span></span>
+      </button>
+      <button class="platform-tab" data-platform="888starz">
+        <i class="fas fa-gem tab-icon"></i>
+        <span class="starz-text"><span class="eight">888</span><span class="starz">STARZ</span></span>
+      </button>
+    </div>
+    <div style="flex: 1;"></div> <!-- Right spacer -->
   </div>
 
   <!-- Main Content -->
@@ -786,14 +811,14 @@
         <div class="title-icon">
           <i class="fas fa-fire"></i>
         </div>
-        <span>POPULAR PREDICTORS</span>
+        <span>HOT PREDICTORS</span>
       </h2>
       <div class="tiles-container">
         <div class="no-results">
           <div class="no-results-icon">
             <i class="fas fa-chart-line"></i>
           </div>
-          <div>Popular predictors will be displayed here soon</div>
+          <div>Hot predictors will be displayed here soon</div>
         </div>
       </div>
     </div>
@@ -842,7 +867,7 @@
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
-              FREE
+              FREE ACCESS
             </span>
           </div>
         </a>
@@ -864,7 +889,7 @@
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
-              FREE
+              FREE ACCESS
             </span>
           </div>
         </a>
@@ -886,7 +911,7 @@
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
-              FREE
+              FREE ACCESS
             </span>
           </div>
         </a>
@@ -908,7 +933,7 @@
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
-              FREE
+              FREE ACCESS
             </span>
           </div>
         </a>
@@ -930,7 +955,7 @@
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
-              FREE
+              FREE ACCESS
             </span>
           </div>
         </a>
@@ -984,7 +1009,7 @@
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
-              FREE
+              FREE ACCESS
             </span>
           </div>
         </a>
@@ -1006,7 +1031,7 @@
             </span>
             <span class="tile-badge badge-free">
               <i class="fas fa-unlock"></i>
-              FREE
+              FREE ACCESS
             </span>
           </div>
         </a>
@@ -1096,15 +1121,15 @@
     </a>
     <a href="#" class="nav-item" id="nav-popular">
       <i class="fas fa-fire nav-icon"></i>
-      <span>Popular</span>
+      <span>Hot</span>
     </a>
     <a href="#" class="nav-item" id="nav-notifications">
       <i class="fas fa-bell nav-icon"></i>
       <span>Alerts</span>
     </a>
     <a href="#" class="nav-item" id="nav-contacts">
-      <i class="fas fa-address-book nav-icon"></i>
-      <span>Contacts</span>
+      <i class="fas fa-headset nav-icon"></i> <!-- Changed icon -->
+      <span>Support</span>
     </a>
   </div>
 
@@ -1210,6 +1235,47 @@
           if (favorites.includes(tileId)) {
             const clone = tile.cloneNode(true);
             clone.style.animationDelay = '0s';
+            
+            // Add favorite toggle functionality to cloned tiles
+            const toggleBtn = clone.querySelector('.favorite-toggle');
+            if (toggleBtn) {
+              toggleBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const tile = this.closest('.tile');
+                const tileId = tile.href || tile.dataset.platform + '-' + tile.dataset.type;
+                
+                // Animate the button
+                this.style.transform = 'scale(1.2) rotate(15deg)';
+                setTimeout(() => {
+                  this.style.transform = '';
+                }, 300);
+                
+                // Remove from favorites
+                const index = favorites.indexOf(tileId);
+                if (index !== -1) {
+                  favorites.splice(index, 1);
+                  localStorage.setItem('favorites', JSON.stringify(favorites));
+                  
+                  // Remove the tile from favorites view
+                  tile.remove();
+                  
+                  // If no favorites left, show empty state
+                  if (favorites.length === 0) {
+                    container.innerHTML = `
+                      <div class="no-results">
+                        <div class="no-results-icon">
+                          <i class="fas fa-star"></i>
+                        </div>
+                        <div>You haven't marked any tools as favorites yet</div>
+                      </div>
+                    `;
+                  }
+                }
+              });
+            }
+            
             container.appendChild(clone);
           }
         });
