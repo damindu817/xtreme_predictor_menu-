@@ -87,23 +87,6 @@
       color: var(--text-lighter);
     }
 
-    .header-actions {
-      display: flex;
-      gap: 15px;
-    }
-
-    .header-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.05);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      color: rgba(255, 255, 255, 0.7);
-    }
-
     /* Platform Tabs */
     .platform-tabs {
       padding: 15px 20px;
@@ -158,6 +141,12 @@
     .platform-tab[data-platform="888starz"].active {
       background: var(--888starz-primary);
       color: var(--888starz-secondary);
+    }
+
+    /* Special styling for 888Starz text when active */
+    .platform-tab[data-platform="888starz"].active .starz-text .eight,
+    .platform-tab[data-platform="888starz"].active .starz-text .starz {
+      color: var(--white-text);
     }
 
     .platform-tab .tab-icon {
@@ -599,14 +588,6 @@
   <!-- App Header -->
   <div class="app-header">
     <div class="header-title">Gaming Predictors</div>
-    <div class="header-actions">
-      <div class="header-icon">
-        <i class="fas fa-search"></i>
-      </div>
-      <div class="header-icon">
-        <i class="fas fa-user"></i>
-      </div>
-    </div>
   </div>
 
   <!-- Platform Tabs -->
@@ -923,11 +904,11 @@
       <i class="fas fa-home nav-icon"></i>
       <span>Home</span>
     </a>
-    <a href="#" class="nav-item" id="nav-favorites">
-      <i class="fas fa-star nav-icon"></i>
-      <span>Favorites</span>
+    <a href="#" class="nav-item" id="nav-popular">
+      <i class="fas fa-chart-line nav-icon"></i>
+      <span>Popular</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="#" class="nav-item" id="nav-notifications" target="_blank">
       <i class="fas fa-bell nav-icon"></i>
       <span>Notifications</span>
     </a>
@@ -1054,6 +1035,8 @@
       // Bottom nav click handler
       navItems.forEach(item => {
         item.addEventListener('click', function(e) {
+          if (this.id === 'nav-notifications') return; // Let the link open in new tab
+          
           e.preventDefault();
           navItems.forEach(i => i.classList.remove('active'));
           this.classList.add('active');
@@ -1064,12 +1047,12 @@
             categories.forEach(cat => cat.classList.remove('active'));
             document.getElementById('category-home').classList.add('active');
             renderFavorites();
-          } else if (this.id === 'nav-favorites') {
-            // Show 1xbet by default
-            platformTabs.forEach(t => t.classList.remove('active'));
-            document.querySelector('.platform-tab[data-platform="1xbet"]').classList.add('active');
+          } else if (this.id === 'nav-popular') {
+            // Show empty state for now (will be populated later)
             categories.forEach(cat => cat.classList.remove('active'));
             document.getElementById('category-1xbet').classList.add('active');
+            platformTabs.forEach(t => t.classList.remove('active'));
+            document.querySelector('.platform-tab[data-platform="1xbet"]').classList.add('active');
           }
         });
       });
