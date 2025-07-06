@@ -203,6 +203,14 @@
       background: linear-gradient(135deg, #6C5CE7, #FD79A8);
     }
 
+    #category-popular .title-icon {
+      background: linear-gradient(135deg, #FF7675, #FDCB6E);
+    }
+
+    #category-notifications .title-icon {
+      background: linear-gradient(135deg, #00B894, #0984E3);
+    }
+
     #category-1xbet .title-icon {
       background: var(--1xbet-primary);
     }
@@ -213,10 +221,6 @@
 
     #category-888starz .title-icon {
       background: var(--888starz-primary);
-    }
-
-    #category-popular .title-icon {
-      background: linear-gradient(135deg, #FF7675, #FDCB6E);
     }
 
     /* Game Tiles */
@@ -591,7 +595,7 @@
 <body>
   <!-- App Header -->
   <div class="app-header">
-    <div class="header-title">XTREME PREDICTOR PTO</div>
+    <div class="header-title">Gaming Predictors</div>
   </div>
 
   <!-- Platform Tabs -->
@@ -612,8 +616,8 @@
 
   <!-- Main Content -->
   <div class="content">
-    <!-- Home Category (Favorites) -->
-    <div class="category" id="category-home">
+    <!-- Home Category -->
+    <div class="category active" id="category-home">
       <h2 class="category-title">
         <div class="title-icon">
           <i class="fas fa-home"></i>
@@ -634,7 +638,7 @@
     <div class="category" id="category-popular">
       <h2 class="category-title">
         <div class="title-icon">
-          <i class="fas fa-chart-line"></i>
+          <i class="fas fa-fire"></i>
         </div>
         <span>POPULAR PREDICTORS</span>
       </h2>
@@ -648,8 +652,26 @@
       </div>
     </div>
 
+    <!-- Notifications Category -->
+    <div class="category" id="category-notifications">
+      <h2 class="category-title">
+        <div class="title-icon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <span>NOTIFICATIONS</span>
+      </h2>
+      <div class="tiles-container">
+        <div class="no-results">
+          <div class="no-results-icon">
+            <i class="fas fa-bell-slash"></i>
+          </div>
+          <div>No new notifications</div>
+        </div>
+      </div>
+    </div>
+
     <!-- 1XBET Category -->
-    <div class="category active" id="category-1xbet">
+    <div class="category" id="category-1xbet">
       <h2 class="category-title">
         <div class="title-icon">
           <i class="fas fa-coins"></i>
@@ -930,7 +952,7 @@
       <i class="fas fa-fire nav-icon"></i>
       <span>Popular</span>
     </a>
-    <a href="#" class="nav-item" id="nav-notifications" target="_blank">
+    <a href="#" class="nav-item" id="nav-notifications">
       <i class="fas fa-bell nav-icon"></i>
       <span>Notifications</span>
     </a>
@@ -1057,8 +1079,6 @@
       // Bottom nav click handler
       navItems.forEach(item => {
         item.addEventListener('click', function(e) {
-          if (this.id === 'nav-notifications') return; // Let the link open in new tab
-          
           e.preventDefault();
           navItems.forEach(i => i.classList.remove('active'));
           this.classList.add('active');
@@ -1073,6 +1093,11 @@
             // Show popular page
             categories.forEach(cat => cat.classList.remove('active'));
             document.getElementById('category-popular').classList.add('active');
+            platformTabs.forEach(t => t.classList.remove('active'));
+          } else if (this.id === 'nav-notifications') {
+            // Show notifications page
+            categories.forEach(cat => cat.classList.remove('active'));
+            document.getElementById('category-notifications').classList.add('active');
             platformTabs.forEach(t => t.classList.remove('active'));
           } else {
             // Show 1xbet by default for other tabs
