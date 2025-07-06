@@ -215,6 +215,10 @@
       background: var(--888starz-primary);
     }
 
+    #category-popular .title-icon {
+      background: linear-gradient(135deg, #FF7675, #FDCB6E);
+    }
+
     /* Game Tiles */
     .tiles-container {
       display: grid;
@@ -608,7 +612,7 @@
 
   <!-- Main Content -->
   <div class="content">
-    <!-- Home Category (formerly Favorites) -->
+    <!-- Home Category (Favorites) -->
     <div class="category" id="category-home">
       <h2 class="category-title">
         <div class="title-icon">
@@ -622,6 +626,24 @@
             <i class="fas fa-star"></i>
           </div>
           <div>You haven't marked any tools as favorites yet</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Popular Category -->
+    <div class="category" id="category-popular">
+      <h2 class="category-title">
+        <div class="title-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <span>POPULAR PREDICTORS</span>
+      </h2>
+      <div class="tiles-container">
+        <div class="no-results">
+          <div class="no-results-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div>Popular predictors will be displayed here soon</div>
         </div>
       </div>
     </div>
@@ -905,7 +927,7 @@
       <span>Home</span>
     </a>
     <a href="#" class="nav-item" id="nav-popular">
-      <i class="fas fa-chart-line nav-icon"></i>
+      <i class="fas fa-fire nav-icon"></i>
       <span>Popular</span>
     </a>
     <a href="#" class="nav-item" id="nav-notifications" target="_blank">
@@ -1048,11 +1070,16 @@
             document.getElementById('category-home').classList.add('active');
             renderFavorites();
           } else if (this.id === 'nav-popular') {
-            // Show empty state for now (will be populated later)
+            // Show popular page
             categories.forEach(cat => cat.classList.remove('active'));
-            document.getElementById('category-1xbet').classList.add('active');
+            document.getElementById('category-popular').classList.add('active');
+            platformTabs.forEach(t => t.classList.remove('active'));
+          } else {
+            // Show 1xbet by default for other tabs
             platformTabs.forEach(t => t.classList.remove('active'));
             document.querySelector('.platform-tab[data-platform="1xbet"]').classList.add('active');
+            categories.forEach(cat => cat.classList.remove('active'));
+            document.getElementById('category-1xbet').classList.add('active');
           }
         });
       });
