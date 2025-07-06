@@ -82,9 +82,9 @@
       position: relative;
     }
 
-    /* App Header */
+    /* Enhanced App Header - Left Aligned */
     .app-header {
-      padding: 12px 16px;
+      padding: 16px 20px;
       background: var(--nav-bg);
       position: sticky;
       top: 0;
@@ -92,15 +92,16 @@
       box-shadow: var(--shadow);
       border-bottom: 1px solid var(--glass-border);
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start; /* Changed to left align */
       align-items: center;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      height: 70px;
     }
 
     .header-title {
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.4rem;
       color: var(--text-lighter);
       letter-spacing: 0.5px;
       background: var(--primary-gradient);
@@ -108,23 +109,30 @@
       background-clip: text;
       -webkit-text-fill-color: transparent;
       text-shadow: 0 2px 10px rgba(108, 92, 231, 0.2);
+      padding: 8px 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    /* Platform Tabs */
+    /* Enhanced Platform Tabs */
     .platform-tabs {
-      padding: 12px 16px;
+      padding: 14px 20px;
       background: var(--nav-bg);
       position: sticky;
-      top: 56px;
+      top: 70px;
       z-index: 90;
       display: flex;
-      gap: 8px;
+      gap: 12px;
       overflow-x: auto;
       scrollbar-width: none;
       border-bottom: 1px solid var(--glass-border);
-      justify-content: center;
+      justify-content: flex-start; /* Changed to left align */
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      height: 70px;
+      align-items: center;
     }
 
     .platform-tabs::-webkit-scrollbar {
@@ -132,23 +140,24 @@
     }
 
     .platform-tab {
-      padding: 8px 12px;
-      border-radius: 8px;
+      padding: 10px 18px;
+      border-radius: 12px;
       background: var(--glass-bg);
       color: var(--text-light);
-      font-weight: 500;
-      font-size: 0.8rem;
+      font-weight: 600;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: var(--transition);
       border: 1px solid var(--glass-border);
       outline: none;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 10px;
       white-space: nowrap;
       flex-shrink: 0;
-      min-width: 90px;
+      min-width: 100px;
       justify-content: center;
+      height: 42px;
     }
 
     .platform-tab:hover {
@@ -162,9 +171,27 @@
       box-shadow: var(--shadow);
     }
 
+    /* 1XBET Button Styling */
+    .platform-tab[data-platform="1xbet"] {
+      border-color: var(--1xbet-primary); /* Blue outline when not selected */
+    }
+    
+    .platform-tab[data-platform="1xbet"] .onex {
+      color: var(--text-light); /* White 1X */
+    }
+    
+    .platform-tab[data-platform="1xbet"] .bet {
+      color: var(--1xbet-primary); /* Blue BET */
+    }
+    
     .platform-tab[data-platform="1xbet"].active {
       background: var(--1xbet-primary);
       border-color: rgba(30, 136, 229, 0.3);
+    }
+    
+    .platform-tab[data-platform="1xbet"].active .onex,
+    .platform-tab[data-platform="1xbet"].active .bet {
+      color: var(--text-light); /* White text when active */
     }
 
     .platform-tab[data-platform="melbet"].active {
@@ -179,14 +206,19 @@
     }
 
     .platform-tab .tab-icon {
-      font-size: 0.9rem;
+      font-size: 1.1rem;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* Main Content */
     .content {
       padding: 16px;
       flex: 1;
-      padding-bottom: 90px; /* Increased padding to prevent overlap with navigation */
+      padding-bottom: 90px;
       overflow-y: auto;
     }
 
@@ -349,7 +381,7 @@
 
     .tile[data-platform="melbet"] .tile-icon {
       background: linear-gradient(135deg, var(--melbet-bg), #2D3436);
-      border: 2px solid var(--melbet-text2); /* Added yellow outline */
+      border: 2px solid var(--melbet-text2);
     }
 
     .tile[data-platform="888starz"] .tile-icon {
@@ -593,7 +625,7 @@
       box-shadow: var(--shadow);
     }
 
-    /* Bottom Navigation */
+    /* Enhanced Bottom Navigation */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -602,11 +634,12 @@
       background: var(--nav-bg);
       display: flex;
       justify-content: space-around;
-      padding: 10px 0;
+      padding: 12px 0;
       border-top: 1px solid var(--glass-border);
       z-index: 100;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      height: 70px;
     }
 
     .nav-item {
@@ -615,10 +648,12 @@
       align-items: center;
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       transition: var(--transition);
       position: relative;
       flex: 1;
+      justify-content: center;
+      gap: 6px;
     }
 
     .nav-item.active {
@@ -629,12 +664,12 @@
     .nav-item.active::after {
       content: '';
       position: absolute;
-      bottom: -10px;
-      width: 5px;
-      height: 5px;
+      bottom: 8px;
+      width: 6px;
+      height: 6px;
       background: var(--nav-active);
       border-radius: 50%;
-      box-shadow: 0 0 8px var(--nav-active);
+      box-shadow: 0 0 10px var(--nav-active);
     }
 
     /* Hot tab specific styles */
@@ -652,13 +687,17 @@
     
     #nav-popular.active::after {
       background: linear-gradient(135deg, #FF7675, #FDCB6E);
-      box-shadow: 0 0 8px #FF7675;
+      box-shadow: 0 0 10px #FF7675;
     }
 
     .nav-icon {
-      font-size: 1.2rem;
-      margin-bottom: 4px;
+      font-size: 1.4rem;
       transition: var(--transition);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .nav-item.active .nav-icon {
@@ -667,122 +706,123 @@
 
     /* Responsive adjustments */
     @media (max-width: 768px) {
-      .tiles-container {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 14px;
+      .app-header {
+        padding: 14px 16px;
+        height: 65px;
+      }
+      
+      .header-title {
+        font-size: 1.2rem;
+        padding: 6px 12px;
       }
       
       .platform-tabs {
-        gap: 8px;
-        padding: 10px 14px;
-        top: 52px;
+        top: 65px;
+        height: 65px;
+        padding: 12px 16px;
       }
       
       .platform-tab {
-        padding: 6px 12px;
-        font-size: 0.75rem;
-        min-width: 80px;
+        padding: 8px 14px;
+        font-size: 0.85rem;
+        min-width: 90px;
+        height: 38px;
       }
       
-      .tile {
-        padding: 16px;
-      }
-      
-      .app-header {
-        padding: 12px 14px;
-      }
-      
-      .content {
-        padding: 14px;
-        padding-bottom: 80px; /* Adjusted for smaller screens */
-      }
-      
-      .category-title {
+      .platform-tab .tab-icon {
         font-size: 1rem;
-      }
-      
-      .tile-icon {
-        width: 42px;
-        height: 42px;
-        font-size: 1.1rem;
+        width: 18px;
+        height: 18px;
       }
       
       .bottom-nav {
-        padding: 8px 0;
+        height: 65px;
+        padding: 10px 0;
       }
       
       .nav-icon {
-        font-size: 1.1rem;
+        font-size: 1.3rem;
+        width: 22px;
+        height: 22px;
       }
     }
 
     @media (max-width: 480px) {
-      .content {
-        padding: 12px;
-        padding-bottom: 70px; /* Adjusted for smallest screens */
-      }
-      
-      .tiles-container {
-        grid-template-columns: 1fr;
-      }
-      
-      .tile-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-      }
-      
-      .category-title {
-        font-size: 0.95rem;
-      }
-      
-      .bottom-nav {
-        padding: 6px 0;
-      }
-      
-      .nav-icon {
-        font-size: 1rem;
-      }
-      
       .app-header {
-        padding: 10px 12px;
+        padding: 12px 14px;
+        height: 60px;
       }
       
       .header-title {
-        font-size: 1rem;
+        font-size: 1.1rem;
+        padding: 5px 10px;
       }
       
       .platform-tabs {
-        padding: 8px 12px;
-        justify-content: flex-start;
+        top: 60px;
+        height: 60px;
+        padding: 10px 12px;
+        gap: 8px;
+      }
+      
+      .platform-tab {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        min-width: 80px;
+        height: 36px;
+        gap: 6px;
+      }
+      
+      .platform-tab .tab-icon {
+        font-size: 0.9rem;
+        width: 16px;
+        height: 16px;
+      }
+      
+      .bottom-nav {
+        height: 60px;
+        padding: 8px 0;
+      }
+      
+      .nav-item {
+        font-size: 0.7rem;
+        gap: 4px;
+      }
+      
+      .nav-icon {
+        font-size: 1.2rem;
+        width: 20px;
+        height: 20px;
+      }
+      
+      .nav-item.active::after {
+        width: 5px;
+        height: 5px;
+        bottom: 6px;
       }
     }
   </style>
 </head>
 <body>
-  <!-- App Header -->
+  <!-- Enhanced App Header - Left Aligned -->
   <div class="app-header">
     <div class="header-title">XTREME PREDICTOR PRO</div>
   </div>
 
-  <!-- Platform Tabs - Centered -->
+  <!-- Enhanced Platform Tabs - Left Aligned -->
   <div class="platform-tabs">
-    <div style="flex: 1;"></div> <!-- Left spacer -->
-    <div style="display: flex; gap: 8px;">
-      <button class="platform-tab active" data-platform="1xbet">
-        <i class="fas fa-coins tab-icon"></i>
-        <span>1XBET</span>
-      </button>
-      <button class="platform-tab" data-platform="melbet">
-        <i class="fas fa-fire tab-icon" style="color: #FFC300;"></i> <!-- Yellow icon -->
-        <span class="melbet-text"><span class="mel">MEL</span><span class="bet">BET</span></span>
-      </button>
-      <button class="platform-tab" data-platform="888starz">
-        <i class="fas fa-gem tab-icon"></i>
-        <span class="starz-text"><span class="eight">888</span><span class="starz">STARZ</span></span>
-      </button>
-    </div>
-    <div style="flex: 1;"></div> <!-- Right spacer -->
+    <button class="platform-tab active" data-platform="1xbet">
+      <i class="fas fa-coins tab-icon"></i>
+      <span class="onexbet-text"><span class="onex">1X</span><span class="bet">BET</span></span>
+    </button>
+    <button class="platform-tab" data-platform="melbet">
+      <i class="fas fa-fire tab-icon" style="color: #FFC300;"></i>
+      <span class="melbet-text"><span class="mel">MEL</span><span class="bet">BET</span></span>
+    </button>
+    <button class="platform-tab" data-platform="888starz">
+      <i class="fas fa-gem tab-icon"></i>
+      <span class="starz-text"><span class="eight">888</span><span class="starz">STARZ</span></span>
+    </button>
   </div>
 
   <!-- Main Content -->
@@ -1113,7 +1153,7 @@
     </div>
   </div>
 
-  <!-- Bottom Navigation -->
+  <!-- Enhanced Bottom Navigation -->
   <div class="bottom-nav">
     <a href="#" class="nav-item active" id="nav-home">
       <i class="fas fa-home nav-icon"></i>
@@ -1128,7 +1168,7 @@
       <span>Alerts</span>
     </a>
     <a href="#" class="nav-item" id="nav-contacts">
-      <i class="fas fa-headset nav-icon"></i> <!-- Changed icon -->
+      <i class="fas fa-headset nav-icon"></i>
       <span>Support</span>
     </a>
   </div>
