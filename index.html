@@ -13,7 +13,11 @@
       --success-gradient: linear-gradient(135deg, #00B894 0%, #55EFC4 100%);
       --warning-gradient: linear-gradient(135deg, #FDCB6E 0%, #FFEAA7 100%);
       --danger-gradient: linear-gradient(135deg, #D63031 0%, #FF7675 100%);
-      --dark-gradient: linear-gradient(135deg, #121212 0%, #2D3436 100%);
+      --dark-gradient: linear-gradient(135deg, 
+        #121212 0%, 
+        #1a1e20 25%, 
+        #232a2d 50%, 
+        #2D3436 100%);
       
       --1xbet-primary: #154c79;
       --1xbet-secondary: #1E88E5;
@@ -22,6 +26,8 @@
       --melbet-text2: #FFC300;
       --888starz-primary: #E53935;
       --888starz-secondary: #FFFFFF;
+      --888starz-red: #E53935;
+      --888starz-white: #FFFFFF;
       
       --dark-bg: #121212;
       --darker-bg: #0A0A0A;
@@ -65,8 +71,19 @@
     html, body {
       height: 100%;
       overflow: hidden;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: var(--dark-gradient);
-      background-attachment: fixed;
+      z-index: -1;
+      pointer-events: none;
     }
     
     body {
@@ -79,10 +96,9 @@
       line-height: 1.6;
       overflow-y: auto;
       overscroll-behavior-y: contain;
-      position: relative;
     }
 
-    /* Enhanced App Header - Left Aligned */
+    /* Enhanced App Header - Centered Platform Tabs */
     .app-header {
       padding: 16px 20px;
       background: var(--nav-bg);
@@ -92,11 +108,12 @@
       box-shadow: var(--shadow);
       border-bottom: 1px solid var(--glass-border);
       display: flex;
-      justify-content: flex-start;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      height: 70px;
+      height: auto;
     }
 
     .header-title {
@@ -114,9 +131,10 @@
       display: flex;
       align-items: center;
       gap: 10px;
+      margin-bottom: 10px;
     }
 
-    /* Enhanced Platform Tabs - Left Aligned */
+    /* Enhanced Platform Tabs - Centered */
     .platform-tabs {
       padding: 14px 20px;
       background: var(--nav-bg);
@@ -128,11 +146,12 @@
       overflow-x: auto;
       scrollbar-width: none;
       border-bottom: 1px solid var(--glass-border);
-      justify-content: flex-start;
+      justify-content: center;
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       height: 70px;
       align-items: center;
+      width: 100%;
     }
 
     .platform-tabs::-webkit-scrollbar {
@@ -199,10 +218,27 @@
       border-color: var(--melbet-text2);
     }
 
+    /* 888STARZ Button Styling - Updated as requested */
+    .platform-tab[data-platform="888starz"] {
+      border-color: var(--888starz-red); /* Red outline when not active */
+    }
+    
+    .platform-tab[data-platform="888starz"] .eight {
+      color: var(--888starz-red); /* Red "888" when not active */
+    }
+    
+    .platform-tab[data-platform="888starz"] .starz {
+      color: var(--888starz-white); /* White "STARZ" when not active */
+    }
+    
     .platform-tab[data-platform="888starz"].active {
-      background: var(--888starz-primary);
-      color: var(--888starz-secondary);
+      background: var(--888starz-red); /* Red background when active */
       border-color: rgba(229, 57, 53, 0.3);
+    }
+    
+    .platform-tab[data-platform="888starz"].active .eight,
+    .platform-tab[data-platform="888starz"].active .starz {
+      color: var(--888starz-white); /* White text for both parts when active */
     }
 
     .platform-tab .tab-icon {
@@ -515,7 +551,7 @@
     }
 
     .platform-tab[data-platform="888starz"]:not(.active) .starz-text .starz {
-      color: var(--red-eight);
+      color: var(--white-text);
     }
 
     .favorite-toggle {
@@ -618,7 +654,7 @@
       box-shadow: var(--shadow);
     }
 
-    /* Enhanced Bottom Navigation */
+    /* Enhanced Bottom Navigation with Fixed Dot Position */
     .bottom-nav {
       position: fixed;
       bottom: 0;
@@ -647,6 +683,7 @@
       flex: 1;
       justify-content: center;
       gap: 6px;
+      padding-top: 8px; /* Added padding to accommodate dot */
     }
 
     .nav-item.active {
@@ -657,7 +694,9 @@
     .nav-item.active::after {
       content: '';
       position: absolute;
-      bottom: 8px;
+      bottom: 10px; /* Adjusted position */
+      left: 50%;
+      transform: translateX(-50%);
       width: 6px;
       height: 6px;
       background: var(--nav-active);
@@ -700,7 +739,7 @@
     @media (max-width: 768px) {
       .app-header {
         padding: 14px 16px;
-        height: 65px;
+        height: auto;
       }
       
       .header-title {
@@ -737,12 +776,16 @@
         width: 22px;
         height: 22px;
       }
+      
+      .nav-item.active::after {
+        bottom: 8px;
+      }
     }
 
     @media (max-width: 480px) {
       .app-header {
         padding: 12px 14px;
-        height: 60px;
+        height: auto;
       }
       
       .header-title {
@@ -779,6 +822,7 @@
       .nav-item {
         font-size: 0.7rem;
         gap: 4px;
+        padding-top: 6px;
       }
       
       .nav-icon {
@@ -796,25 +840,23 @@
   </style>
 </head>
 <body>
-  <!-- Enhanced App Header - Left Aligned -->
+  <!-- Enhanced App Header with Centered Platform Tabs -->
   <div class="app-header">
     <div class="header-title">XTREME PREDICTOR PRO</div>
-  </div>
-
-  <!-- Enhanced Platform Tabs - Left Aligned -->
-  <div class="platform-tabs">
-    <button class="platform-tab active" data-platform="1xbet">
-      <i class="fas fa-coins tab-icon"></i>
-      <span class="onexbet-text"><span class="onex">1X</span><span class="bet">BET</span></span>
-    </button>
-    <button class="platform-tab" data-platform="melbet">
-      <i class="fas fa-fire tab-icon" style="color: #FFC300;"></i>
-      <span class="melbet-text"><span class="mel">MEL</span><span class="bet">BET</span></span>
-    </button>
-    <button class="platform-tab" data-platform="888starz">
-      <i class="fas fa-gem tab-icon"></i>
-      <span class="starz-text"><span class="eight">888</span><span class="starz">STARZ</span></span>
-    </button>
+    <div class="platform-tabs">
+      <button class="platform-tab active" data-platform="1xbet">
+        <i class="fas fa-coins tab-icon"></i>
+        <span class="onexbet-text"><span class="onex">1X</span><span class="bet">BET</span></span>
+      </button>
+      <button class="platform-tab" data-platform="melbet">
+        <i class="fas fa-fire tab-icon" style="color: #FFC300;"></i>
+        <span class="melbet-text"><span class="mel">MEL</span><span class="bet">BET</span></span>
+      </button>
+      <button class="platform-tab" data-platform="888starz">
+        <i class="fas fa-gem tab-icon"></i>
+        <span class="starz-text"><span class="eight">888</span><span class="starz">STARZ</span></span>
+      </button>
+    </div>
   </div>
 
   <!-- Main Content -->
